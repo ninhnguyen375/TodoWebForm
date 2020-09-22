@@ -196,6 +196,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="Tasks.aspx" />
+    <Content Include="TasksDetail.aspx" />
     <Content Include="Users.aspx" />
     <Content Include="UsersDetail.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -216,8 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\BLL\AuthBLL.cs" />
+    <Compile Include="App_Code\BLL\TasksBLL.cs" />
     <Compile Include="App_Code\BLL\UsersBLL.cs" />
     <Compile Include="App_Code\DTO\Request\UpdateUserDTO.cs" />
+    <Compile Include="App_Code\Constant\TaskStatus.cs" />
+    <Compile Include="App_Code\DAL\TasksDAL.cs" />
+    <Compile Include="App_Code\DTO\TasksDTO.cs" />
     <Compile Include="App_Code\DTO\UsersDTO.cs" />
     <Compile Include="App_Code\DTO\Response\ResponseRegisterDTO.cs" />
     <Compile Include="App_Code\DAL\AuthDAL.cs" />
@@ -292,6 +298,20 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks.aspx.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tasks.aspx.designer.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TasksDetail.aspx.cs">
+      <DependentUpon>TasksDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TasksDetail.aspx.designer.cs">
+      <DependentUpon>TasksDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

@@ -24,6 +24,23 @@ namespace TodoListWebForm.App_Code.DAL
 
             return ds.Tables[0];
         }
+
+        public static DataTable getListUsersExceptCurrentUser(int currentUserId)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select * from users
+                            where id != @currentUserId";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+
+            da.Fill(ds);
+            ConnectionDatabase.closeConnection();
+
+            return ds.Tables[0];
+        }
+
         public static UsersDTO getUserById(int id)
         {
             ConnectionDatabase.getConnection();

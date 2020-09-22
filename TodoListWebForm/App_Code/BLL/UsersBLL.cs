@@ -15,6 +15,11 @@ namespace TodoListWebForm.App_Code.BLL
         {
             return UsersDAL.getListUsers();
         }
+
+        public static DataTable getListUsersExceptCurrentUser(int currentUserId)
+        {
+            return UsersDAL.getListUsersExceptCurrentUser(currentUserId);
+        }
         public static void updateUser(UpdateUserDTO user)
         {
             UsersDAL.updateUser(user);
