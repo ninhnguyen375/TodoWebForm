@@ -1,0 +1,20 @@
+﻿<%@ Master MasterPageFile="~/Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Site.Admin.master.cs" Inherits="TodoListWebForm.Site_Admin" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<% string path = HttpContext.Current.Request.Url.AbsolutePath; %>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+              <a href="/dashboard" class="nav-link <% if (path.IndexOf("dashboard") > -1) { %> active <% } %> ">Dashboard</a>
+              <a href="/users" class="nav-link <% if (path.IndexOf("users") > -1) { %> active <% } %> ">Users</a>
+            </div>
+        </div>
+        <div class="col">
+            <asp:ContentPlaceHolder ID="MainContentAdmin" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
+
+
+
