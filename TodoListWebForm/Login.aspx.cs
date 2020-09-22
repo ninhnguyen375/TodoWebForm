@@ -26,6 +26,7 @@ namespace TodoListWebForm
 
             if (result != null)
             {
+                Session["id"] = result.ID;
                 Session["name"] = result.Name;
                 Session["email"] = result.Email;
                 Session["role"] = result.Role;
