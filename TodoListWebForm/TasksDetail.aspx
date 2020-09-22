@@ -12,14 +12,23 @@
             <label for="startDate">Start Date</label>
             <asp:TextBox TextMode="DateTimeLocal" ID="startDate" class="form-control" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
-            </div>
+        </div>
         <div class="form-group">
             <label for="endDate">End Date</label>
             <asp:TextBox TextMode="DateTimeLocal" ID="endDate" class="form-control" runat="server"></asp:TextBox>
             <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
-            </div>
+        </div>
         <div class="form-group">
-            <label for="endDate">Select partner</label>
+            <label for="status">Status</label>
+            <select runat="server" id="status">
+                <option value="inprogress">In Progress</option>
+                <option value="done">Done</option>
+                <option value="expired">Expired</option>
+            </select>
+            <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Status is required" ControlToValidate="status" runat="server" />
+        </div>
+        <div class="form-group">
+            <label for="endDate">Partners</label>
             <asp:GridView EnablePersistedSelection="true"  DataKeyNames="id" ID="usersGridView" runat="server" AutoGenerateColumns="False">
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
@@ -40,6 +49,6 @@
             <label for="endDate">Private</label>
             <asp:CheckBox runat="server" ID="privateScope" />
             </div>
-        <asp:Button Text="Add new task" runat="server" />
+        <asp:Button Text="Update new task" runat="server" />
     </div>
 </asp:Content>

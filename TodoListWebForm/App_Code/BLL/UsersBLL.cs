@@ -36,5 +36,10 @@ namespace TodoListWebForm.App_Code.BLL
         {
             return UsersDAL.getTasksOfUser(userId);
         }
+
+        public static List<int> getListPartnerIdFollowTaskId(int taskId)
+        {
+            return UsersDAL.getListPartnerIdFollowTaskId(taskId);
+        }
     }
 }
