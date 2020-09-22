@@ -16,13 +16,12 @@ namespace TodoListWebForm
         {
             string user = Convert.ToString(Session["id"]);
 
-            if(String.IsNullOrEmpty(user))
+            if (String.IsNullOrEmpty(user))
             {
                 Response.Redirect("/login");
             }
 
-
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 GridViewTaskBind();
                 GridViewUserBind();
@@ -31,7 +30,7 @@ namespace TodoListWebForm
 
         protected void HandleCreateTask(object sender, EventArgs e)
         {
-            String titleTask = title.Text;
+            string titleTask = title.Text;
             String startDateTask = startDate.Text;
             String endDateTask = endDate.Text;
             String statusTask = TaskStatus.InProgress;
@@ -42,8 +41,8 @@ namespace TodoListWebForm
             foreach (GridViewRow row in usersGridView.Rows)
             {
 
-                CheckBox checkBox = (CheckBox) row.FindControl("checkbox");
-                if(checkBox.Checked)
+                CheckBox checkBox = (CheckBox)row.FindControl("checkbox");
+                if (checkBox.Checked)
                 {
                     arr.Add(Int32.Parse(usersGridView.DataKeys[row.RowIndex].Value.ToString()));
                 }
@@ -52,7 +51,7 @@ namespace TodoListWebForm
             TasksDTO task = new TasksDTO(titleTask, startDateTask, endDateTask, statusTask, IsPrivate);
             int ownerId = Convert.ToInt32(Session["id"].ToString());
             TasksBLL.CreateTask(task, arr, ownerId);
-            GridViewTaskBind();       
+            GridViewTaskBind();
         }
 
         protected void HandleDeleteTask(object sender, GridViewDeleteEventArgs e)
@@ -64,13 +63,13 @@ namespace TodoListWebForm
 
         private void GridViewTaskBind()
         {
-            tasksGridView.DataSource = TasksBLL.GetAllTasks();
+            tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(Convert.ToInt32(Session["id"].ToString()));
             tasksGridView.DataBind();
         }
 
         private void GridViewUserBind()
         {
-            usersGridView.DataSource = UsersBLL.getListUsers();
+            usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
             usersGridView.DataBind();
         }
     }

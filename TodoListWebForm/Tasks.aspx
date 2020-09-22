@@ -24,6 +24,7 @@
 <ControlStyle CssClass="form-control"></ControlStyle>
             </asp:BoundField>
             <asp:CommandField ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowHeader="True" />
+            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="tasksDetail.aspx?id={0}" DataTextField="id" DataTextFormatString="View details for {0}" />
         </Columns>
         </asp:GridView>
 

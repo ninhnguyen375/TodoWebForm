@@ -24,6 +24,24 @@ namespace TodoListWebForm.App_Code.DAL
             return ds.Tables[0];
         }
 
+        public static DataTable GetAllTasksByUserId(int userId)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select * from tasks
+                             where id in (select taskId 
+                                          from usersTasks
+                                          where userId = @userId)";
+            SqlDataAdapter da = new SqlDataAdapter();
+            SqlCommand cmd = ConnectionDatabase.conn.CreateCommand();
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.CommandText = query;
+            da.SelectCommand = cmd;
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            ConnectionDatabase.closeConnection();
+            return ds.Tables[0];
+        }
+
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)
         {
             ConnectionDatabase.getConnection();
@@ -62,16 +80,48 @@ namespace TodoListWebForm.App_Code.DAL
             return 1;
         }
 
-        public static int DeleteTaskById(String id)
+        public static int DeleteTaskById(string taskId)
+        {
+            // remove usersTasks
+            ConnectionDatabase.getConnection();
+            string sql = @"delete from usersTasks
+                            where taskId = @taskId";
+            SqlCommand cmd = new SqlCommand(sql, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.ExecuteNonQuery();
+
+            // remove tasks
+            sql = @"delete from tasks 
+                    where id = @taskId";
+            cmd = new SqlCommand(sql, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.ExecuteNonQuery();
+            ConnectionDatabase.closeConnection();
+            return 1;
+        }
+
+        public static TasksDTO getTaskByTaskId(int taskId)
         {
             ConnectionDatabase.getConnection();
-            string sql = @"delete from tasks 
-                            where id = @id";
-            SqlCommand cmd = new SqlCommand(sql, ConnectionDatabase.conn);
-            cmd.Parameters.AddWithValue("@id", id);
-            int result = cmd.ExecuteNonQuery();
+            string query = @"select * from tasks where id = @taskId";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+
+            IDataReader reader = cmd.ExecuteReader();
+            TasksDTO task = null;
+
+            while (reader.Read())
+            {
+                int id = Convert.ToInt32(reader["id"].ToString());
+                string taskTitle = reader["title"].ToString();
+                string taskStartDate = reader["startDate"].ToString();
+                string taskEndDate = reader["endDate"].ToString();
+                string taskStatus = reader["status"].ToString();
+                bool taskPrivate = Convert.ToBoolean(reader["private"]);
+                task = new TasksDTO(id, taskTitle, taskStartDate, taskEndDate, taskStatus, taskPrivate);
+            }
             ConnectionDatabase.closeConnection();
-            return result;
+            return task;
         }
     }
 }
