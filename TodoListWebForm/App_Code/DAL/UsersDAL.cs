@@ -118,5 +118,27 @@ namespace TodoListWebForm.App_Code.DAL
 
             return ds.Tables[0];
         }
+
+        public static List<int> getListPartnerIdFollowTaskId(int taskId)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select userId
+                             from usersTasks
+                             where taskId = @taskId";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            SqlDataReader read = cmd.ExecuteReader();
+            List<int> arrPartnerId = new List<int>();
+            while(read.HasRows)
+            {
+                while (read.Read())
+                {
+                    arrPartnerId.Add(read.GetInt32(0));
+                }
+                read.NextResult();
+            }
+            ConnectionDatabase.closeConnection();
+            return arrPartnerId;
+        }
     }
 }
