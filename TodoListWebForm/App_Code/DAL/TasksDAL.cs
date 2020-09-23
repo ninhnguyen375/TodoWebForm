@@ -24,22 +24,46 @@ namespace TodoListWebForm.App_Code.DAL
             return ds.Tables[0];
         }
 
-        public static DataTable GetAllTasksByUserId(int userId)
+        public static List<TasksDTO> GetAllTasksByUserId(int userId)
         {
             ConnectionDatabase.getConnection();
-            string query = @"select * from tasks
-                             where id in (select taskId 
-                                          from usersTasks
-                                          where userId = @userId)";
-            SqlDataAdapter da = new SqlDataAdapter();
-            SqlCommand cmd = ConnectionDatabase.conn.CreateCommand();
+            string query = @"select * from (
+	                                        select * from tasks
+	                                        where id in (select taskId 
+				                                        from usersTasks
+				                                        where userId = @userId)
+	                                        union
+	                                        select * from tasks
+	                                        where id in (select taskId 
+				                                        from usersTasks
+				                                        where userId != @userId)
+				                                        and private = 0
+                                        ) as temp
+                                        order by startDate asc";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);
-            cmd.CommandText = query;
-            da.SelectCommand = cmd;
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            ConnectionDatabase.closeConnection();
-            return ds.Tables[0];
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TasksDTO> arr = new List<TasksDTO>();
+            while(reader.HasRows)
+            {
+                while(reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string title = reader.GetString(1);
+                    string startDate = Convert.ToString(reader.GetDateTime(2));
+                    string endDate = Convert.ToString(reader.GetDateTime(3));
+                    string status = reader.GetString(4);
+                    bool Private = Convert.ToBoolean(reader.GetValue(5));
+                    arr.Add(new TasksDTO(id,
+                                         title,
+                                         startDate,
+                                         endDate,
+                                         status,
+                                         Private));
+                }
+                reader.NextResult();
+            }
+            return arr;
         }
 
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)
@@ -150,14 +174,22 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@taskId", task.ID);
             cmd.ExecuteNonQuery();
 
-            // remove all usersTasks by taskId except the owner
+            // remove all usersTasks by taskId
             ConnectionDatabase.getConnection();
             string sql = @"delete from usersTasks
-                            where taskId = @taskId
-                            and isOwner = 0";
+                            where taskId = @taskId";
             cmd = new SqlCommand(sql, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@taskId", task.ID);
             cmd.ExecuteNonQuery();
+
+            // add the owner into task
+            query = @"insert into usersTasks(userId, taskId, isOwner)
+                        values (@userId, @taskId, 1)";
+            cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@userId", ownerId);
+            cmd.Parameters.AddWithValue("@taskId", task.ID);
+            cmd.ExecuteNonQuery();
+
 
             // add again by list partnerId
             // add partner into task

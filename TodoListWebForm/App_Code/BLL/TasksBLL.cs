@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using TodoListWebForm.App_Code.DAL;
 using TodoListWebForm.App_Code.DTO;
+using TodoListWebForm.App_Code.DTO.Response;
 
 namespace TodoListWebForm.App_Code.BLL
 {
@@ -15,9 +16,25 @@ namespace TodoListWebForm.App_Code.BLL
             return TasksDAL.GetAllTasks();
         }
 
-        public static DataTable GetAllTasksByUserId(int userId)
+        public static List<ResponseGetTaskByUserId> GetAllTasksByUserId(int userId)
         {
-            return TasksDAL.GetAllTasksByUserId(userId);
+            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksByUserId(userId);
+            List<ResponseGetTaskByUserId> arrFinal = new List<ResponseGetTaskByUserId>();
+            // add partner
+            for(int i = 0; i < arrTasks.Count; i++)
+            {
+                DataTable partners = UsersBLL.getListUserOfTask(arrTasks[i].ID);
+                ResponseGetTaskByUserId temp = new ResponseGetTaskByUserId();
+                temp.ID = arrTasks[i].ID;
+                temp.Title = arrTasks[i].Title;
+                temp.startDate = arrTasks[i].startDate;
+                temp.endDate = arrTasks[i].endDate;
+                temp.Status = arrTasks[i].Status;
+                temp.Private = arrTasks[i].Private;
+                temp.Partners = partners;
+                arrFinal.Add(temp);
+            }
+            return arrFinal;
         }
 
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)

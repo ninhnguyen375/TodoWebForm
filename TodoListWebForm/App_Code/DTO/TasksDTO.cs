@@ -32,9 +32,9 @@ namespace TodoListWebForm.App_Code.DTO
 
         public int ID { get; set; }
         public string Title { get; set; }
-        public String startDate { get; set; }
-        public String endDate { get; set; }
-        public String Status { get; set; }
+        public string startDate { get; set; }
+        public string endDate { get; set; }
+        public string Status { get; set; }
         public bool Private { get; set; }
 
     }
