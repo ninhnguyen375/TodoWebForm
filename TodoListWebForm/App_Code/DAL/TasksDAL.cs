@@ -156,10 +156,10 @@ namespace TodoListWebForm.App_Code.DAL
             return task;
         }
 
-        public static int updateTask(TasksDTO task, int ownerId, List<int> arrPartnerId)
+        public static int updateTask(TasksDTO task, List<int> arrPartnerId)
         {
+            int ownerId = getOwnerByTaskId(task.ID);
             ConnectionDatabase.getConnection();
-
             // update task
             string query = @"update tasks
                              set title=@title,startDate=@startDate,endDate=@endDate,status=@status,private=@private
@@ -175,7 +175,6 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.ExecuteNonQuery();
 
             // remove all usersTasks by taskId
-            ConnectionDatabase.getConnection();
             string sql = @"delete from usersTasks
                             where taskId = @taskId";
             cmd = new SqlCommand(sql, ConnectionDatabase.conn);
@@ -205,6 +204,27 @@ namespace TodoListWebForm.App_Code.DAL
 
             ConnectionDatabase.closeConnection();
             return 1;
+        }
+
+        public static int getOwnerByTaskId(int taskId)
+        {
+            ConnectionDatabase.getConnection();
+
+            string query = @"select * from usersTasks
+                             where taskId in (select id 
+                                              from tasks
+                                              where id = @taskId)
+                             and isOwner=1";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            IDataReader reader = cmd.ExecuteReader();
+            int userId = -1;
+            while (reader.Read())
+            {
+                userId = Convert.ToInt32(reader["userId"]);
+            }
+            ConnectionDatabase.closeConnection();
+            return userId;
         }
 
         public static int createComment(int userId, int taskId, string content)

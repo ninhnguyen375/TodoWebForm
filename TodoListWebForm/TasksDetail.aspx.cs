@@ -84,7 +84,7 @@ namespace TodoListWebForm
                 }
             }
 
-            TasksBLL.updateTask(newTask, Convert.ToInt32(Session["id"].ToString()), arr);
+            TasksBLL.updateTask(newTask, arr);
 
         }
 
@@ -95,7 +95,7 @@ namespace TodoListWebForm
                 Response.Redirect("/login");
             }
             // load partners 
-            usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
+            usersGridView.DataSource = UsersBLL.getListUsers();
             usersGridView.DataBind();
         }
 

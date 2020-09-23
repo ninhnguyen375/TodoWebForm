@@ -29,7 +29,8 @@ namespace TodoListWebForm.App_Code.DAL
         {
             ConnectionDatabase.getConnection();
             string query = @"select * from users
-                            where id != @currentUserId";
+                            where id != @currentUserId
+                            and role != 'admin'";
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -125,6 +126,7 @@ namespace TodoListWebForm.App_Code.DAL
             string query = @"select userId
                              from usersTasks
                              where taskId = @taskId";
+
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@taskId", taskId);
             SqlDataReader read = cmd.ExecuteReader();
