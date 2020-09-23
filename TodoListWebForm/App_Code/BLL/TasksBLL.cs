@@ -34,5 +34,19 @@ namespace TodoListWebForm.App_Code.BLL
         {
             return TasksDAL.getTaskByTaskId(taskId);
         }
+
+        public static int updateTask(TasksDTO task, int ownerId, List<int> arrPartnerId)
+        {
+            return TasksDAL.updateTask(task, ownerId, arrPartnerId);
+        }
+
+        public static int createComment(int userId, int taskId, string content)
+        {
+            return TasksDAL.createComment(userId, taskId, content);
+        }
+        public static DataTable getCommentByTaskId(int taskId)
+        {
+            return TasksDAL.getCommentByTaskId(taskId);
+        }
     }
 }
