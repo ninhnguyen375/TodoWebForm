@@ -189,6 +189,8 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@taskId", task.ID);
             cmd.ExecuteNonQuery();
 
+            // remove owner checked in arrPartnerId cause owner is inserted above
+            arrPartnerId.Remove(ownerId);
 
             // add again by list partnerId
             // add partner into task

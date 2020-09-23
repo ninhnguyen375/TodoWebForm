@@ -86,6 +86,7 @@ namespace TodoListWebForm
 
             TasksBLL.updateTask(newTask, arr);
 
+            initValue();
         }
 
         private void bindPartner()
@@ -95,7 +96,7 @@ namespace TodoListWebForm
                 Response.Redirect("/login");
             }
             // load partners 
-            usersGridView.DataSource = UsersBLL.getListUsers();
+            usersGridView.DataSource = UsersBLL.getListUsersExceptRoleAdmin();
             usersGridView.DataBind();
         }
 

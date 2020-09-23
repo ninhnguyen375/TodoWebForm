@@ -17,6 +17,11 @@ namespace TodoListWebForm.App_Code.BLL
             return UsersDAL.getListUsers();
         }
 
+        public static DataTable getListUsersExceptRoleAdmin()
+        {
+            return UsersDAL.getListUsersExceptRoleAdmin();
+        }
+
         public static DataTable getListUsersExceptCurrentUser(int currentUserId)
         {
             return UsersDAL.getListUsersExceptCurrentUser(currentUserId);

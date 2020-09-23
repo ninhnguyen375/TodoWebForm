@@ -25,6 +25,21 @@ namespace TodoListWebForm.App_Code.DAL
             return ds.Tables[0];
         }
 
+        public static DataTable getListUsersExceptRoleAdmin()
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select * from users
+                            where role != 'admin'";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+
+            da.Fill(ds);
+            ConnectionDatabase.closeConnection();
+
+            return ds.Tables[0];
+        }
+
         public static DataTable getListUsersExceptCurrentUser(int currentUserId)
         {
             ConnectionDatabase.getConnection();
