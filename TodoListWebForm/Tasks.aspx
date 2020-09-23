@@ -5,6 +5,13 @@
         <div class="row">
             <div class="col-12">
                 <h3 class="font-weight-bold">Table Tasks</h3>
+                <div class="row my-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-plus"></i> Add new task
+                        </button>
+                    </div>
+                </div>
                 <div class="task__wrap">
                     <asp:GridView BorderColor="#eeeeee" DataKeyNames="id" CssClass="table" runat="server" ID="tasksGridView" AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
                         <Columns>
@@ -54,47 +61,61 @@
                     </asp:GridView>
                 </div>
             </div>
-            <div class="col-12">
-                <div>
-                    <h3 class="font-weight-bold">Form add task</h3>
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <asp:TextBox ID="title" class="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Title is required" ControlToValidate="title" runat="server" />
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <h3 class="font-weight-bold">Form add task</h3>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <asp:TextBox ID="title" class="form-control" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Title is required" ControlToValidate="title" runat="server" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <asp:TextBox TextMode="DateTimeLocal" ID="startDate" class="form-control" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <asp:TextBox TextMode="DateTimeLocal" ID="endDate" class="form-control" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">Select partner</label>
+                                    <asp:GridView CssClass="table" BorderColor="#eeeeee" EnablePersistedSelection="true" DataKeyNames="id" ID="usersGridView" runat="server" AutoGenerateColumns="False">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="Select">
+                                                <ItemTemplate>
+                                                    <asp:CheckBox runat="server" ID="checkbox" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField ControlStyle-CssClass="form-control" DataField="id" HeaderText="ID">
+                                                <ControlStyle CssClass="form-control"></ControlStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField ControlStyle-CssClass="form-control" DataField="name" HeaderText="Name">
+                                                <ControlStyle CssClass="form-control"></ControlStyle>
+                                            </asp:BoundField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">Private</label>
+                                    <asp:CheckBox runat="server" ID="privateScope" />
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <asp:Button CssClass="btn btn-primary" Text="Add new task" runat="server" OnClick="HandleCreateTask" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="startDate">Start Date</label>
-                        <asp:TextBox TextMode="DateTimeLocal" ID="startDate" class="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">End Date</label>
-                        <asp:TextBox TextMode="DateTimeLocal" ID="endDate" class="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">Select partner</label>
-                        <asp:GridView CssClass="table" BorderColor="#eeeeee" EnablePersistedSelection="true" DataKeyNames="id" ID="usersGridView" runat="server" AutoGenerateColumns="False">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Select">
-                                    <ItemTemplate>
-                                        <asp:CheckBox runat="server" ID="checkbox" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField ControlStyle-CssClass="form-control" DataField="id" HeaderText="ID">
-                                    <ControlStyle CssClass="form-control"></ControlStyle>
-                                </asp:BoundField>
-                                <asp:BoundField ControlStyle-CssClass="form-control" DataField="name" HeaderText="Name">
-                                    <ControlStyle CssClass="form-control"></ControlStyle>
-                                </asp:BoundField>
-                            </Columns>
-                        </asp:GridView>
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">Private</label>
-                        <asp:CheckBox runat="server" ID="privateScope" />
-                    </div>
-                    <asp:Button CssClass="btn btn-primary" Text="Add new task" runat="server" OnClick="HandleCreateTask" />
                 </div>
             </div>
         </div>
