@@ -9,7 +9,6 @@ a, a:hover {
     text-decoration: none;
 }
 
-/* TASK */
 .task {
     width: 500px;
     padding: 10px;
@@ -79,4 +78,23 @@ textarea {
 .comment__name {
     font-size:1.2rem;
     font-weight: bold;
+}
+.task__users tbody {
+    display: flex;
+    max-width: 50px;
+    overflow: hidden;
+}
+
+.task__users__item {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #cfcfcf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.task__users__item i {
+    font-size: 0.8em;
+    color: gray;
 }

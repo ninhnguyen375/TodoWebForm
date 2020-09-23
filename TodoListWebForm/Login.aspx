@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Login" MasterPageFile="~/Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TodoListWebForm.Login" %>
+﻿<%@ Page Title="Login" MasterPageFile="~/Site.Master" Language="C#" AutoEventWireup="true"
+    CodeBehind="Login.aspx.cs" Inherits="TodoListWebForm.Login" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
@@ -9,12 +10,14 @@
                 <div class="form-group">
                     <label for="tbEmail">Email address</label>
                     <asp:TextBox ID="tbEmail" class="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Email is required" ControlToValidate="tbEmail" runat="server" />
+                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Email is required"
+                        ControlToValidate="tbEmail" runat="server" />
                 </div>
                 <div class="form-group">
                     <label for="tbPassword">Password</label>
                     <asp:TextBox class="form-control" ID="tbPassword" TextMode="Password" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Password is required" ControlToValidate="tbPassword" runat="server" />
+                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Password is required"
+                        ControlToValidate="tbPassword" runat="server" />
                 </div>
                 <asp:Label Text="Email or password incorrect" runat="server" ID="lbError" class="form-text text-danger" />
                 <div class="mt-2"></div>

@@ -140,5 +140,23 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.closeConnection();
             return arrPartnerId;
         }
+
+        public static DataTable getListUserOfTask(int taskId)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select *
+                            from usersTasks, users
+                            where taskId = @taskId 
+                                and users.id = usersTasks.userId";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+
+            da.Fill(ds);
+            ConnectionDatabase.closeConnection();
+
+            return ds.Tables[0];
+        }
     }
 }

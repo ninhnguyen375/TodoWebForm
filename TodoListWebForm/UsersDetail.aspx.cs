@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using TodoListWebForm.App_Code.BLL;
 using TodoListWebForm.App_Code.Constant;
 using TodoListWebForm.App_Code.DTO;
+using TodoListWebForm.App_Code.DTO.Response;
 
 namespace TodoListWebForm
 {
@@ -36,7 +37,7 @@ namespace TodoListWebForm
             lbName.Text = user.Name;
             lbRole.Text = user.Role;
 
-            DataTable tasksOfUser = UsersBLL.getTasksOfUser(userId);
+            List<ResponseTaskDTO> tasksOfUser = UsersBLL.getTasksOfUser(userId);
             DataList1.DataSource = tasksOfUser;
             DataList1.DataBind();
         }
