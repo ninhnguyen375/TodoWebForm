@@ -223,6 +223,7 @@
     <Compile Include="App_Code\DTO\Request\UpdateUserDTO.cs" />
     <Compile Include="App_Code\Constant\TaskStatus.cs" />
     <Compile Include="App_Code\DAL\TasksDAL.cs" />
+    <Compile Include="App_Code\DTO\Response\ResponseGetTaskByUserId.cs" />
     <Compile Include="App_Code\DTO\Response\ResponseTaskDTO.cs" />
     <Compile Include="App_Code\DTO\TasksDTO.cs" />
     <Compile Include="App_Code\DTO\UsersDTO.cs" />
