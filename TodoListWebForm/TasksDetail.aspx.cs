@@ -14,8 +14,7 @@ namespace TodoListWebForm
         TasksDTO task;
         protected void Page_Load(object sender, EventArgs e)
         {
-            int taskId = Convert.ToInt32(Request.QueryString["id"]);
-            task = TasksBLL.getTaskByTaskId(taskId);
+            getValueTask();
 
             if (task == null)
             {
@@ -25,6 +24,7 @@ namespace TodoListWebForm
             if (!IsPostBack)
             {
                 initValue();
+                bindComment();
             }
         }
 
@@ -37,14 +37,13 @@ namespace TodoListWebForm
             privateScope.Checked = task.Private;
 
             // load partners 
-            usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
-            usersGridView.DataBind();
+            bindPartner();
 
 
             List<int> arrPartnerId = UsersBLL.getListPartnerIdFollowTaskId(task.ID);
 
             // check partners
-            foreach(GridViewRow row in usersGridView.Rows)
+            foreach (GridViewRow row in usersGridView.Rows)
             {
                 int partnerCurrentId = Convert.ToInt32(usersGridView.DataKeys[row.RowIndex].Value.ToString());
                 int index = arrPartnerId.FindIndex(u => u == partnerCurrentId);
@@ -53,9 +52,70 @@ namespace TodoListWebForm
                     CheckBox ckb = row.FindControl("checkbox") as CheckBox;
                     ckb.Checked = true;
                 }
-                
+
             }
         }
 
+        protected void handleUpdateTaskDetail(object sender, EventArgs e)
+        {
+            // get info task
+            string titleTask = title.Text;
+            String startDateTask = startDate.Text;
+            String endDateTask = endDate.Text;
+            String statusTask = status.Value;
+            bool IsPrivate = privateScope.Checked;
+
+            TasksDTO newTask = new TasksDTO(task.ID, titleTask, startDateTask, endDateTask, statusTask, IsPrivate);
+
+            // get list partner
+            List<int> arr = new List<int>();
+            foreach (GridViewRow row in usersGridView.Rows)
+            {
+
+                CheckBox checkBox = (CheckBox)row.FindControl("checkbox");
+                if (checkBox.Checked)
+                {
+                    arr.Add(Int32.Parse(usersGridView.DataKeys[row.RowIndex].Value.ToString()));
+                }
+            }
+
+            TasksBLL.updateTask(newTask, Convert.ToInt32(Session["id"].ToString()), arr);
+
+        }
+
+        private void bindPartner()
+        {
+            // load partners 
+            usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
+            usersGridView.DataBind();
+        }
+
+        private void bindComment()
+        {
+            commentsDataList.DataSource = TasksBLL.getCommentByTaskId(task.ID);
+            commentsDataList.DataBind();
+        }
+
+        private void getValueTask()
+        {
+            int taskId = Convert.ToInt32(Request.QueryString["id"]);
+            task = TasksBLL.getTaskByTaskId(taskId);
+        }
+
+        protected void handleSubmitComment(object sender, EventArgs e)
+        {
+            string content = chatBox.Text;
+            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, content);
+            bindComment();
+
+            // reset 
+            chatBox.Text = "";
+        }
+
+        protected void HandleDeleteTask(object sender, EventArgs e)
+        {
+            int result = TasksBLL.DeleteTaskById(Convert.ToString(task.ID));
+            Response.Redirect("/tasks");
+        }
     }
 }

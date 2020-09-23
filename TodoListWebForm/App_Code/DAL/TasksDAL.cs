@@ -82,11 +82,19 @@ namespace TodoListWebForm.App_Code.DAL
 
         public static int DeleteTaskById(string taskId)
         {
-            // remove usersTasks
             ConnectionDatabase.getConnection();
-            string sql = @"delete from usersTasks
-                            where taskId = @taskId";
+            
+            // remove comment 
+            string sql = @"delete from comments 
+                    where taskId = @taskId";
             SqlCommand cmd = new SqlCommand(sql, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.ExecuteNonQuery();
+
+            // remove usersTasks
+            sql = @"delete from usersTasks
+                            where taskId = @taskId";
+            cmd = new SqlCommand(sql, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@taskId", taskId);
             cmd.ExecuteNonQuery();
 
@@ -122,6 +130,84 @@ namespace TodoListWebForm.App_Code.DAL
             }
             ConnectionDatabase.closeConnection();
             return task;
+        }
+
+        public static int updateTask(TasksDTO task, int ownerId, List<int> arrPartnerId)
+        {
+            ConnectionDatabase.getConnection();
+
+            // update task
+            string query = @"update tasks
+                             set title=@title,startDate=@startDate,endDate=@endDate,status=@status,private=@private
+                             where id=@taskId";
+
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@title", task.Title);
+            cmd.Parameters.AddWithValue("@startDate", Convert.ToDateTime(task.startDate));
+            cmd.Parameters.AddWithValue("@endDate", Convert.ToDateTime(task.endDate));
+            cmd.Parameters.AddWithValue("@status", task.Status);
+            cmd.Parameters.AddWithValue("@private", task.Private);
+            cmd.Parameters.AddWithValue("@taskId", task.ID);
+            cmd.ExecuteNonQuery();
+
+            // remove all usersTasks by taskId except the owner
+            ConnectionDatabase.getConnection();
+            string sql = @"delete from usersTasks
+                            where taskId = @taskId
+                            and isOwner = 0";
+            cmd = new SqlCommand(sql, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", task.ID);
+            cmd.ExecuteNonQuery();
+
+            // add again by list partnerId
+            // add partner into task
+            for (int i = 0; i < arrPartnerId.Count; i++)
+            {
+                query = @"insert into usersTasks(userId, taskId, isOwner)
+                        values (@userId, @taskId, 0)";
+                cmd = new SqlCommand(query, ConnectionDatabase.conn);
+                cmd.Parameters.AddWithValue("@userId", arrPartnerId[i]);
+                cmd.Parameters.AddWithValue("@taskId", task.ID);
+                cmd.ExecuteNonQuery();
+            }
+
+            ConnectionDatabase.closeConnection();
+            return 1;
+        }
+
+        public static int createComment(int userId, int taskId, string content)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"insert into comments(userId, taskId, content)
+                             values (@userId, @taskId, @content)";
+
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.Parameters.AddWithValue("@content", content);
+            cmd.ExecuteNonQuery();
+            ConnectionDatabase.closeConnection();
+            return 1;
+        }
+
+        public static DataTable getCommentByTaskId(int taskId)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"select name, email, content
+                             from  comments c, users u
+                             where c.userId = u.id
+                             and   taskId = @taskId";
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            cmd = ConnectionDatabase.conn.CreateCommand();
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.CommandText = query;
+            da.SelectCommand = cmd;
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            ConnectionDatabase.closeConnection();
+            return ds.Tables[0];
         }
     }
 }
