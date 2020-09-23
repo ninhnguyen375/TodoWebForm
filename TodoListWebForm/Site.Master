@@ -15,6 +15,7 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="toastr.js"></script>
@@ -49,30 +50,31 @@
               </button>
               <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
+                    <% string path = HttpContext.Current.Request.Url.AbsolutePath; %>
                     <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link<% if (path.IndexOf("default") > -1) { %> active <% } %>" href="/">Home</a>
                     </li>
                     <% if(Session["role"] != null && Session["role"].Equals("admin")) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                            <a class="nav-link<% if (path.IndexOf("dashboard") > -1) { %> active <% } %>" href="/dashboard">Dashboard</a>
                         </li>
                     <% } %>
                     <% if(Session["name"] == null) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link <% if (path.IndexOf("login") > -1) { %> active <% } %>" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link<% if (path.IndexOf("register") > -1) { %> active <% } %>" href="/register">Register</a>
                         </li>
                     <% } else { %>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/tasks">Tasks</a>
+                            <a class="nav-link<% if (path.IndexOf("tasks") > -1) { %> active <% } %>" href="/tasks">Tasks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#"><%: Session["name"] %> <span class="sr-only">(current)</span></a>
+                            <a class="nav-link active" href="#"><span class="mr-3">|</span> <%: Session["name"] %></a>
                         </li>
-                        <li class="nav-item">
-                            <asp:Button OnClick="HandleClickLogout" class="btn btn-primary" Text="Logout" runat="server" />
+                        <li class="nav-item d-flex align-items-center">
+                            <asp:Button OnClick="HandleClickLogout" OnClientClick="HandleClickLogout" class="btn btn-primary btn-sm" Text="Logout" runat="server" />
                         </li>
                     <% } %>
                 </ul>

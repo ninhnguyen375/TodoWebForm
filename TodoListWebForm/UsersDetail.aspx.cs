@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TodoListWebForm.App_Code.BLL;
+using TodoListWebForm.App_Code.Constant;
 using TodoListWebForm.App_Code.DTO;
 
 namespace TodoListWebForm
@@ -14,6 +15,15 @@ namespace TodoListWebForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["name"] == null)
+            {
+                Response.Redirect("/login");
+            }
+            if (Session["role"] != null && !Session["role"].Equals(Role.Admin))
+            {
+                Response.Redirect("/login");
+            }
+
             int userId = Convert.ToInt32(Request.QueryString["id"]);
             UsersDTO user = UsersBLL.getUserById(userId);
 
@@ -27,8 +37,8 @@ namespace TodoListWebForm
             lbRole.Text = user.Role;
 
             DataTable tasksOfUser = UsersBLL.getTasksOfUser(userId);
-            GridTasks.DataSource = tasksOfUser;
-            GridTasks.DataBind();
+            DataList1.DataSource = tasksOfUser;
+            DataList1.DataBind();
         }
     }
 }
