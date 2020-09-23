@@ -50,8 +50,8 @@ namespace TodoListWebForm.App_Code.DAL
                 {
                     int id = reader.GetInt32(0);
                     string title = reader.GetString(1);
-                    string startDate = Convert.ToString(reader.GetDateTime(2));
-                    string endDate = Convert.ToString(reader.GetDateTime(3));
+                    string startDate = reader.GetValue(2).ToString().Split(Convert.ToChar(" "))[0];
+                    string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0]; 
                     string status = reader.GetString(4);
                     bool Private = Convert.ToBoolean(reader.GetValue(5));
                     arr.Add(new TasksDTO(id,
@@ -262,6 +262,20 @@ namespace TodoListWebForm.App_Code.DAL
             da.Fill(ds);
             ConnectionDatabase.closeConnection();
             return ds.Tables[0];
+        }
+        public static void updateStatusOfTask(int taskId, string status)
+        {
+            ConnectionDatabase.getConnection();
+            string query = @"update tasks
+                             set status=@status
+                             where id=@taskId";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+            cmd.Parameters.AddWithValue("@status", status);
+
+            cmd.ExecuteNonQuery();
+
+            ConnectionDatabase.closeConnection();
         }
     }
 }

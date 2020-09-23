@@ -36,8 +36,8 @@ namespace TodoListWebForm
         private void initValue()
         {
             title.Text = task.Title;
-            startDate.Text = DateTime.Parse(task.startDate).ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
-            endDate.Text = DateTime.Parse(task.endDate).ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
+            startDate.Text = DateTime.Parse(task.startDate).ToLocalTime().ToString("yyyy-MM-dd");
+            endDate.Text = DateTime.Parse(task.endDate).ToLocalTime().ToString("yyyy-MM-dd");
             status.Value = task.Status;
             privateScope.Checked = task.Private;
 

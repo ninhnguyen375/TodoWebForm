@@ -81,7 +81,7 @@ textarea {
 }
 .task__users tbody {
     display: flex;
-    max-width: 50px;
+    max-width: 217px;
     overflow: hidden;
 }
 

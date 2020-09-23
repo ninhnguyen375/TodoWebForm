@@ -123,7 +123,12 @@ namespace TodoListWebForm.App_Code.DAL
                                 select taskId
                                 from usersTasks
                                 where usersTasks.userId = @userId
-                            );";
+                            )
+                            order by case when status = 'expired' then 1
+			                      when status = 'inprogress' then 2
+			                      when status = 'done' then 3
+			                      else 4
+		                     end asc, startDate desc";
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);
             SqlDataAdapter da = new SqlDataAdapter(cmd);

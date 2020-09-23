@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using TodoListWebForm.App_Code.Constant;
 using TodoListWebForm.App_Code.DAL;
 using TodoListWebForm.App_Code.DTO;
 using TodoListWebForm.App_Code.DTO.Request;
@@ -47,17 +48,24 @@ namespace TodoListWebForm.App_Code.BLL
             {
                 int taskId = Convert.ToInt32(row.ItemArray.GetValue(0));
                 DataTable usersOfTask = getListUserOfTask(taskId);
-                tasks.Add(new ResponseTaskDTO
+                ResponseTaskDTO task = new ResponseTaskDTO
                 {
                     ID = Convert.ToInt32(row.ItemArray.GetValue(0)),
                     Title = row.ItemArray.GetValue(1).ToString(),
-                    startDate = row.ItemArray.GetValue(2).ToString(),
-                    endDate = row.ItemArray.GetValue(3).ToString(),
+                    startDate = row.ItemArray.GetValue(2).ToString().Split(Convert.ToChar(" "))[0],
+                    endDate = row.ItemArray.GetValue(3).ToString().Split(Convert.ToChar(" "))[0],
                     Status = row.ItemArray.GetValue(4).ToString(),
-                    Private= Convert.ToBoolean(row.ItemArray.GetValue(5)),
+                    Private = Convert.ToBoolean(row.ItemArray.GetValue(5)),
                     Users = usersOfTask
-                });
+                };
 
+                if(DateTime.Now.CompareTo(Convert.ToDateTime(task.endDate)) > 0 && !task.Status.Equals(TaskStatus.Done))
+                {
+                    TasksBLL.updateStatusOfTask(task.ID, TaskStatus.Expired);
+                    task.Status = TaskStatus.Expired;
+                }
+
+                tasks.Add(task);
             }
             return tasks;
         }

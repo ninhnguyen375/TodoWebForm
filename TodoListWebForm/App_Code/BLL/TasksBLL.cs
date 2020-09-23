@@ -65,5 +65,9 @@ namespace TodoListWebForm.App_Code.BLL
         {
             return TasksDAL.getCommentByTaskId(taskId);
         }
+        public static void updateStatusOfTask(int taskId, string status)
+        {
+            TasksDAL.updateStatusOfTask(taskId, status);
+        }
     }
 }
