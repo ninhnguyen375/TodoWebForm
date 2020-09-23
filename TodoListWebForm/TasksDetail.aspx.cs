@@ -83,9 +83,9 @@ namespace TodoListWebForm
                     arr.Add(Int32.Parse(usersGridView.DataKeys[row.RowIndex].Value.ToString()));
                 }
             }
-
             TasksBLL.updateTask(newTask, arr);
 
+            getValueTask();
             initValue();
         }
 
@@ -126,6 +126,17 @@ namespace TodoListWebForm
         {
             int result = TasksBLL.DeleteTaskById(Convert.ToString(task.ID));
             Response.Redirect("/tasks");
+        }
+
+        protected void handleRemindTask(object sender, EventArgs e)
+        {
+            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, @"
+            DM CHÚNG M CÓ CÁI TASK MÀ LÀM CHƯA XONG
+            ");
+            bindComment();
+
+            // reset 
+            chatBox.Text = "";
         }
     }
 }

@@ -65,6 +65,7 @@
                         </div>
                         <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
                         <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
+                        <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
                         <div class="row mt-5">
                             <h3 class="font-weight-bold">User comment:</h3>
                             <asp:DataList CssClass="col-lg-12" ID="commentsDataList" runat="server">

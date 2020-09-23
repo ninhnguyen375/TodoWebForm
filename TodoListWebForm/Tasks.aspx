@@ -20,7 +20,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField ControlStyle-Width="200px" HeaderText="Employee">
+                            <asp:TemplateField ControlStyle-Width="180px" HeaderText="Employee">
                                 <ItemTemplate>
                                     <asp:DataList
                                         BorderWidth="0"
@@ -37,14 +37,14 @@
                             </asp:TemplateField>
 
 
-                            <asp:BoundField ControlStyle-Width="200px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date"></asp:BoundField>
-                            <asp:BoundField ControlStyle-Width="200px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date"></asp:BoundField>
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date"></asp:BoundField>
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date"></asp:BoundField>
                             <asp:TemplateField HeaderText="Status">
                                 <ItemTemplate>
                                     <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField>
+                            <asp:TemplateField HeaderText="Scope">
                                 <ItemTemplate>
                                     <asp:Label CssClass='<%# Convert.ToBoolean(Eval("private")) ? "badge badge-dark" : "badge badge-warning" %>' ID="Label4" runat="server" Text='<%# Convert.ToBoolean(Eval("private")) ? "Private" : "Public" %>'></asp:Label>
                                 </ItemTemplate>
