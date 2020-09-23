@@ -14,6 +14,11 @@ namespace TodoListWebForm
         TasksDTO task;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["name"] == null)
+            {
+                Response.Redirect("/login");
+            }
+
             getValueTask();
 
             if (task == null)
@@ -85,6 +90,10 @@ namespace TodoListWebForm
 
         private void bindPartner()
         {
+            if (Session["id"] == null)
+            {
+                Response.Redirect("/login");
+            }
             // load partners 
             usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
             usersGridView.DataBind();

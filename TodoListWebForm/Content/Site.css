@@ -48,9 +48,9 @@ a, a:hover {
     overflow-y: scroll;
 }
 
-label {
+/*label {
     font-weight: bold;
-}
+}*/
 
 label:after {
     content: ":"
