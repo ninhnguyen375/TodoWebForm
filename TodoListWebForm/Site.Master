@@ -88,7 +88,7 @@
                             </li>
                             <% if (Session["role"] != null && !Session["role"].Equals("admin")) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link<%: path.IndexOf("tasks") > -1 ? " active" : ""%>%>"
+                                    <a class="nav-link<%: path.IndexOf("tasks") > -1 ? " active" : ""%>"
                                         href="/tasks">Tasks</a>
                                 </li>
                             <% } %>

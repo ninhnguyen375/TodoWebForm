@@ -285,22 +285,35 @@ namespace TodoListWebForm.App_Code.DAL
         public static List<TasksDTO> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week)
         {
             ConnectionDatabase.getConnection();
-            string query = @"select * from (
-	                                        select * from tasks
-	                                        where id in (select taskId 
-				                                        from usersTasks
-				                                        where userId = @userId)
-	                                        union
-	                                        select * from tasks
-	                                        where id in (select taskId 
-				                                        from usersTasks
-				                                        where userId != @userId)
-				                                        and private = 0
-                                        ) as temp
-                             where DATEPART(WEEKDAY,startDate) = @day_of_week
-                             and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
-	                         and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])";
+            string query;
 
+            if(userId == -1)
+            {
+                query = @"select * from (
+	                                            select * from tasks
+	                                            where id in (select taskId 
+				                                            from usersTasks
+				                                            where userId = @userId)
+	                                            union
+	                                            select * from tasks
+	                                            where id in (select taskId 
+				                                            from usersTasks
+				                                            where userId != @userId)
+				                                            and private = 0
+                                            ) as temp
+                                 where DATEPART(WEEKDAY,startDate) = @day_of_week
+                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])";
+
+            }
+            else
+            {
+                query = @"select * from (select * 
+                                         from tasks) as temp
+                                 where DATEPART(WEEKDAY,startDate) = @day_of_week
+                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])";
+            }
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@day_of_week", day_of_week);
