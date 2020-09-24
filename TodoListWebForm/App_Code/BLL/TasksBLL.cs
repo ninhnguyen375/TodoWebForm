@@ -37,9 +37,9 @@ namespace TodoListWebForm.App_Code.BLL
             return arrFinal;
         }
 
-        public static List<ResponseGetTaskByUserId> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week)
+        public static List<ResponseGetTaskByUserId> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week,string datetime)
         {
-            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, day_of_week);
+            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, day_of_week, datetime);
             List<ResponseGetTaskByUserId> arrFinal = new List<ResponseGetTaskByUserId>();
             // add partner
             for (int i = 0; i < arrTasks.Count; i++)

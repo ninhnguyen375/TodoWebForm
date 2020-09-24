@@ -4,15 +4,166 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3 class="font-weight-bold">Table Tasks</h3>
                 <div class="row my-3">
-                    <div class="col-12">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-plus mr-1"></i>Add new task
-                       
-                        </button>
+                    <div class="col-12 m-0 p-0">
+                        <h3 class="font-weight-bold p-0 m-0">Table Tasks of week</h3>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-plus mr-1"></i>Add new task
+                            </button>
+                            <div class="ml-auto d-flex justify-content-end">
+                                <asp:TextBox ID="selectWeek" CssClass="form-control ml-2" Width="200" TextMode="Week" runat="server">
+                            </asp:TextBox>
+                            <asp:Button CssClass="btn btn-primary ml-2" OnClientClick="handleSelectWeek" Text="Filter" runat="server" OnClick="handleSelectWeek" />
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="row table-task-of-week">
+                    <div class="col-2">
+                        <h3>Monday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="mondayDataList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3>Tuesday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="tuesdayDataList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3>Wednesday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="wednesdayDataList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3>Thursday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="thursdayDataList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3>Friday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="fridayDataList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h3>Saturday</h3>
+                        <div class="wrap-table">
+                            <asp:DataList CssClass="task-of-week" runat="server" ID="saturdayDatList">
+                                <ItemTemplate>
+                                    <div class="task-of-week__item">
+                                        <p class="task-of-week__title"><%# Eval("title") %></p>
+                                        <asp:DataList
+                                            runat="server"
+                                            DataSource='<%# Eval("Partners") %>'>
+                                            <ItemTemplate>
+                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                    <i class="fas fa-user"></i>
+                                                    <%# Eval("name") %>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="font-weight-bold mt-5">All Task</h3>
                 <div class="task__wrap">
                     <asp:GridView BorderColor="#eeeeee" DataKeyNames="id" CssClass="table" runat="server" ID="tasksGridView" AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
                         <Columns>
@@ -60,85 +211,8 @@
                         </Columns>
                     </asp:GridView>
                 </div>
-                <div class="row">
-                    <div class="col-2">
-                        <h3>Monday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="mondayDataList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                    <div class="col-2">
-                        <h3>Tuesday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="tuesdayDataList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                    <div class="col-2">
-                        <h3>Wednesday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="wednesdayDataList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                    <div class="col-2">
-                        <h3>Thursday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="thursdayDataList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                    <div class="col-2">
-                        <h3>Friday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="fridayDataList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:DataList
-                                        runat="server"
-                                        DataSource='<%# Eval("Partners") %>'>
-                                        <ItemTemplate>
-                                            <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                <i class="fas fa-user"></i>
-                                                <%# Eval("name") %>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:DataList>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                    <div class="col-2">
-                        <h3>Saturday</h3>
-                        <asp:DataList CssClass="task-of-week" runat="server" ID="saturdayDatList">
-                            <ItemTemplate>
-                                <div class="task-of-week__item">
-                                    <p class="task-of-week__title"><%# Eval("title") %></p>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                </div>
             </div>
+
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

@@ -283,7 +283,7 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.closeConnection();
         }
 
-        public static List<TasksDTO> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week)
+        public static List<TasksDTO> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week, string datetime)
         {
             ConnectionDatabase.getConnection();
             string query;
@@ -303,8 +303,8 @@ namespace TodoListWebForm.App_Code.DAL
 				                                            and private = 0
                                             ) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
-                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])
+                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
                                  order by case when status = 'expired' then 1
 			                          when status = 'inprogress' then 2
 			                          when status = 'done' then 3
@@ -317,8 +317,8 @@ namespace TodoListWebForm.App_Code.DAL
                 query = @"select * from (select * 
                                          from tasks) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
-                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])
+                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
                                  order by case when status = 'expired' then 1
 			                          when status = 'inprogress' then 2
 			                          when status = 'done' then 3
@@ -328,6 +328,15 @@ namespace TodoListWebForm.App_Code.DAL
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@day_of_week", day_of_week);
+
+            if(datetime == null)
+            {
+                cmd.Parameters.AddWithValue("@datetime", DateTime.Now.ToString());
+            }else
+            {
+                cmd.Parameters.AddWithValue("@datetime", datetime);
+            }
+
             SqlDataReader reader = cmd.ExecuteReader();
             List<TasksDTO> arr = new List<TasksDTO>();
             while (reader.HasRows)

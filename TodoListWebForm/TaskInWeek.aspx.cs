@@ -44,22 +44,22 @@ namespace TodoListWebForm
                 userId = Convert.ToInt32(Session["id"]);
             }
 
-            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 2);
+            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 2, null);
             mondayDataList.DataBind();
 
-            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 3);
+            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 3, null);
             tuesdayDataList.DataBind();
 
-            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 4);
+            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 4,null);
             wednesdayDataList.DataBind();
 
-            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 5);
+            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 5, null);
             thursdayDataList.DataBind();
 
-            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 6);
+            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 6, null);
             fridayDataList.DataBind();
 
-            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 7);
+            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 7, null);
             saturdayDatList.DataBind();
         }
         protected DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
