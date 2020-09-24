@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Tasks.aspx.cs" Inherits="TodoListWebForm.Tasks" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="row my-3">
@@ -35,7 +35,7 @@
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
                                                 <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <i class="fas fa-user"></i>
+                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                     <%# Eval("name") %>
                                                 </div>
                                             </ItemTemplate>
@@ -58,7 +58,7 @@
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
                                                 <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <i class="fas fa-user"></i>
+                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                     <%# Eval("name") %>
                                                 </div>
                                             </ItemTemplate>
@@ -81,7 +81,7 @@
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
                                                 <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <i class="fas fa-user"></i>
+                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                     <%# Eval("name") %>
                                                 </div>
                                             </ItemTemplate>
@@ -104,7 +104,7 @@
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
                                                 <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <i class="fas fa-user"></i>
+                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                     <%# Eval("name") %>
                                                 </div>
                                             </ItemTemplate>
@@ -127,7 +127,7 @@
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
                                                 <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <i class="fas fa-user"></i>
+                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                     <%# Eval("name") %>
                                                 </div>
                                             </ItemTemplate>
@@ -186,7 +186,7 @@
                                         DataSource='<%# Eval("Partners") %>'>
                                         <ItemTemplate>
                                             <div title='<%# Eval("email") %>'>
-                                                <i class="fas fa-user"></i>
+                                                <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
                                                 <%# Eval("name") %>
                                             </div>
                                         </ItemTemplate>
@@ -232,12 +232,13 @@
                                 <div class="form-group">
                                     <label for="startDate">Start Date</label>
                                     <asp:TextBox TextMode="Date" ID="startDate" class="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
+                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Date is required" ControlToValidate="startDate" runat="server" />
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">End Date</label>
                                     <asp:TextBox TextMode="Date" ID="endDate" class="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
+                                    <asp:RequiredFieldValidator Display="Dynamic" CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
+                                    <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">Select partner</label>

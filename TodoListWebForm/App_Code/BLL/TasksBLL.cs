@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using TodoListWebForm.App_Code.Constant;
 using TodoListWebForm.App_Code.DAL;
 using TodoListWebForm.App_Code.DTO;
 using TodoListWebForm.App_Code.DTO.Response;
@@ -32,6 +33,13 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
                 temp.Partners = partners;
+                
+                if (DateTime.Now.CompareTo(Convert.ToDateTime(arrTasks[i].endDate)) > 0 && !arrTasks[i].Status.Equals(TaskStatus.Done))
+                {
+                    TasksBLL.updateStatusOfTask(arrTasks[i].ID, TaskStatus.Expired);
+                    arrTasks[i].Status = TaskStatus.Expired;
+                }
+
                 arrFinal.Add(temp);
             }
             return arrFinal;
@@ -53,6 +61,13 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
                 temp.Partners = partners;
+
+                if (DateTime.Now.CompareTo(Convert.ToDateTime(arrTasks[i].endDate)) > 0 && !arrTasks[i].Status.Equals(TaskStatus.Done))
+                {
+                    TasksBLL.updateStatusOfTask(arrTasks[i].ID, TaskStatus.Expired);
+                    arrTasks[i].Status = TaskStatus.Expired;
+                }
+
                 arrFinal.Add(temp);
             }
             return arrFinal;

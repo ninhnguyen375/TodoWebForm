@@ -112,13 +112,20 @@ namespace TodoListWebForm
         {
             string s = selectWeek.Text;
 
-            string[] split = s.Split('-');
-            string year = split[0];
-            string Wweek = split[1];
-            string week = Wweek.Split('W')[1];
+            if(!s.Equals(""))
+            {
+                string[] split = s.Split('-');
+                string year = split[0];
+                string Wweek = split[1];
+                string week = Wweek.Split('W')[1];
 
-            DateTime date = FirstDateOfWeekISO8601(Convert.ToInt32(year), Convert.ToInt32(week));
-            GridViewTasksDayOfWeek(date.ToString());
+                DateTime date = FirstDateOfWeekISO8601(Convert.ToInt32(year), Convert.ToInt32(week));
+                GridViewTasksDayOfWeek(date.ToString());
+            }else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+                    "toastr_message", "toastr.error('Please choose day')", true);
+            }
         }
 
         public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
