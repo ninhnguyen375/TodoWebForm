@@ -5,24 +5,23 @@
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 10px;
+    padding: 10px 0;
+    background: #eeeeee;
 }
 .task-in-week__items {
     display: flex;
     justify-content: center;
-    height: 65vh;
+    height: 62vh;
     overflow-x: hidden;
     overflow-y: scroll;
     padding: 10px 5px 0 5px;
 }
 .task-in-week__col {
-    border: 1px solid lightgray;
     padding: 0;
 
 }
 .task-in-week__items::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
  
 .task-in-week__items::-webkit-scrollbar-track {

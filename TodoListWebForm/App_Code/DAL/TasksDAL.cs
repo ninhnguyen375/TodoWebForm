@@ -287,7 +287,7 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.getConnection();
             string query;
 
-            if(userId == -1)
+            if(userId != -1)
             {
                 query = @"select * from (
 	                                            select * from tasks
@@ -303,7 +303,12 @@ namespace TodoListWebForm.App_Code.DAL
                                             ) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
                                  and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])";
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])
+                                 order by case when status = 'expired' then 1
+			                          when status = 'inprogress' then 2
+			                          when status = 'done' then 3
+			                          else 4
+		                         end asc, startDate desc";
 
             }
             else
@@ -312,7 +317,12 @@ namespace TodoListWebForm.App_Code.DAL
                                          from tasks) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
                                  and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])";
+	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, GETDATE()), CAST(GETDATE() AS DATE)) [WeekEnd])
+                                 order by case when status = 'expired' then 1
+			                          when status = 'inprogress' then 2
+			                          when status = 'done' then 3
+			                          else 4
+		                         end asc, startDate desc";
             }
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);

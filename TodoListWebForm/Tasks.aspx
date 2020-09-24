@@ -1,14 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Tasks.aspx.cs" Inherits="TodoListWebForm.Tasks" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <h3 class="font-weight-bold">Table Tasks</h3>
                 <div class="row my-3">
                     <div class="col-12">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-plus"></i>Add new task
+                            <i class="fas fa-plus mr-1"></i>Add new task
                        
                         </button>
                     </div>
@@ -150,7 +150,6 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <h3 class="font-weight-bold">Form add task</h3>
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <asp:TextBox ID="title" class="form-control" runat="server"></asp:TextBox>
