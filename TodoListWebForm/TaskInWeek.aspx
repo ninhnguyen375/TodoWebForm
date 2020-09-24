@@ -3,7 +3,12 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid task-in-week">
-        <div class="row justify-content-end">
+        <div class="row justify-content-between">
+            <div>
+                <b><asp:Label runat="server" ID="startDateOfWeek" /></b>
+                -
+                <b><asp:Label runat="server" ID="endDateOfWeek" /></b>
+            </div>
             <button" data-toggle="modal" data-target="#addTaskModal" class="btn btn-primary">
                 <i class="fas fa-plus mr-1"></i>
                 ADD NEW TASK
@@ -27,7 +32,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>
@@ -80,7 +85,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>
@@ -133,7 +138,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>
@@ -186,7 +191,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>
@@ -239,7 +244,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>
@@ -292,7 +297,7 @@
                                             <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-dark text-white" : "task__status bg-success text-white") %>'
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>'
                                                 ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                         </div>
                                     </div>

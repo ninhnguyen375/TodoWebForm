@@ -66,7 +66,6 @@
                             </div>
                             <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
                             <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
-                            <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
                             <div class="row mt-5">
                                 <h3 class="font-weight-bold">User comment:</h3>
                                 <asp:DataList CssClass="col-lg-12" ID="commentsDataList" runat="server">
@@ -75,7 +74,13 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <h3 class="comment__name"><%# Eval("name") %>< <%# Eval("email") %> ></h3>
-                                                    <p class="comment__content"><%# Eval("content") %></p>
+                                                    <p class="comment__content <%# Convert.ToBoolean(Eval("isRemind")) ? "alert-danger" : "" %>">
+                                                        <span class="<%# Convert.ToBoolean(Eval("isRemind")) ? "badge badge-danger p-3" : "" %>">
+                                                            <i class="<%# Convert.ToBoolean(Eval("isRemind")) ? "fas fa-bell" : "" %>" style="font-size: 1.3em"></i>
+                                                        </span>
+                                                        <span class="ml-2"><%# Eval("content") %></span>
+                                                    </p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -86,6 +91,9 @@
                                 <div class="col-12">
                                     <asp:TextBox CssClass="w-100 p-4 form-control" TextMode="MultiLine" runat="server" ID="chatBox"></asp:TextBox>
                                     <asp:Button OnClick="handleSubmitComment" CssClass="btn btn-primary mt-2" Text="SUBMIT COMMENT" runat="server" />
+                                    <% if(Session["role"].Equals("admin")) { %>
+                                        <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

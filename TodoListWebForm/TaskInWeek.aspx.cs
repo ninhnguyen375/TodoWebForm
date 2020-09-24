@@ -28,7 +28,9 @@ namespace TodoListWebForm
         private void bindDatesOfWeek ()
         {
             DateTime start = StartOfWeek(DateTime.Now, DayOfWeek.Monday);
-            DateTime end = StartOfWeek(DateTime.Now, DayOfWeek.Sunday);
+            DateTime end = StartOfWeek(DateTime.Now, DayOfWeek.Saturday);
+            startDateOfWeek.Text = start.ToString().Split(' ')[0];
+            endDateOfWeek.Text = end.ToString().Split(' ')[0];
         }
         private void GridViewTasksDayOfWeek()
         {
@@ -39,7 +41,7 @@ namespace TodoListWebForm
                 userId = -1;
             } else
             {
-                userId = Convert.ToInt32(Session["id"].ToString());
+                userId = Convert.ToInt32(Session["id"]);
             }
 
             mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 2);

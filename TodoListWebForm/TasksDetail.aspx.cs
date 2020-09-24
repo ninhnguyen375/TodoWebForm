@@ -115,7 +115,7 @@ namespace TodoListWebForm
         protected void handleSubmitComment(object sender, EventArgs e)
         {
             string content = chatBox.Text;
-            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, content);
+            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, content, false);
             bindComment();
 
             // reset 
@@ -130,9 +130,7 @@ namespace TodoListWebForm
 
         protected void handleRemindTask(object sender, EventArgs e)
         {
-            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, @"
-            HURRY UP! EVERYONE
-            ");
+            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, @"HURRY UP! EVERYONE", true);
             bindComment();
 
             // reset 

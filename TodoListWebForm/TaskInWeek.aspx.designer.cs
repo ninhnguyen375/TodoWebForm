@@ -13,6 +13,24 @@ namespace TodoListWebForm {
     public partial class TaskInWeek {
         
         /// <summary>
+        /// startDateOfWeek control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label startDateOfWeek;
+        
+        /// <summary>
+        /// endDateOfWeek control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label endDateOfWeek;
+        
+        /// <summary>
         /// mondayDataList control.
         /// </summary>
         /// <remarks>

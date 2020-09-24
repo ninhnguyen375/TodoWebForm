@@ -78,9 +78,9 @@ namespace TodoListWebForm.App_Code.BLL
             return TasksDAL.updateTask(task, arrPartnerId);
         }
 
-        public static int createComment(int userId, int taskId, string content)
+        public static int createComment(int userId, int taskId, string content, bool isRemind)
         {
-            return TasksDAL.createComment(userId, taskId, content);
+            return TasksDAL.createComment(userId, taskId, content, isRemind);
         }
         public static DataTable getCommentByTaskId(int taskId)
         {

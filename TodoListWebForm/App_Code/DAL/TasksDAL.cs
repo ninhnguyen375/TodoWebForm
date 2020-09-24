@@ -233,16 +233,17 @@ namespace TodoListWebForm.App_Code.DAL
             return userId;
         }
 
-        public static int createComment(int userId, int taskId, string content)
+        public static int createComment(int userId, int taskId, string content, bool isRemind)
         {
             ConnectionDatabase.getConnection();
-            string query = @"insert into comments(userId, taskId, content)
-                             values (@userId, @taskId, @content)";
+            string query = @"insert into comments(userId, taskId, content, isRemind)
+                             values (@userId, @taskId, @content, @isRemind)";
 
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@taskId", taskId);
             cmd.Parameters.AddWithValue("@content", content);
+            cmd.Parameters.AddWithValue("@isRemind", isRemind);
             cmd.ExecuteNonQuery();
             ConnectionDatabase.closeConnection();
             return 1;
@@ -251,7 +252,7 @@ namespace TodoListWebForm.App_Code.DAL
         public static DataTable getCommentByTaskId(int taskId)
         {
             ConnectionDatabase.getConnection();
-            string query = @"select name, email, content
+            string query = @"select *
                              from  comments c, users u
                              where c.userId = u.id
                              and   taskId = @taskId";
