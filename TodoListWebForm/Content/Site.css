@@ -98,3 +98,26 @@ textarea {
     font-size: 0.8em;
     color: gray;
 }
+
+.task-of-week__item {
+    word-break: break-word;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #dddddd;
+    margin-bottom: 5px;
+}
+
+.task-of-week__item:hover {
+    background-color: #dddddd;
+}
+
+.task-of-week__item .task-of-week__title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.task-of-week__item .task-of-week__user {
+    font-size: 0.8rem;
+}

@@ -131,7 +131,7 @@ namespace TodoListWebForm
         protected void handleRemindTask(object sender, EventArgs e)
         {
             TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, @"
-            DM CHÚNG M CÓ CÁI TASK MÀ LÀM CHƯA XONG
+            HURRY UP! EVERYONE
             ");
             bindComment();
 

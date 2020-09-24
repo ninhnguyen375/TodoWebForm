@@ -22,6 +22,60 @@ namespace TodoListWebForm {
         protected global::System.Web.UI.WebControls.GridView tasksGridView;
         
         /// <summary>
+        /// mondayDataList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList mondayDataList;
+        
+        /// <summary>
+        /// tuesdayDataList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList tuesdayDataList;
+        
+        /// <summary>
+        /// wednesdayDataList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList wednesdayDataList;
+        
+        /// <summary>
+        /// thursdayDataList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList thursdayDataList;
+        
+        /// <summary>
+        /// fridayDataList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList fridayDataList;
+        
+        /// <summary>
+        /// saturdayDatList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList saturdayDatList;
+        
+        /// <summary>
         /// title control.
         /// </summary>
         /// <remarks>

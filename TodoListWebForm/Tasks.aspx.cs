@@ -25,7 +25,29 @@ namespace TodoListWebForm
             {
                 GridViewTaskBind();
                 GridViewUserBind();
+                GridViewTasksDayOfWeek();
             }
+        }
+
+        private void GridViewTasksDayOfWeek()
+        {
+            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 2);
+            mondayDataList.DataBind();
+
+            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 3);
+            tuesdayDataList.DataBind();
+
+            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 4);
+            wednesdayDataList.DataBind();
+
+            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 5);
+            thursdayDataList.DataBind();
+
+            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 6);
+            fridayDataList.DataBind();
+
+            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 7);
+            saturdayDatList.DataBind();
         }
 
         protected void HandleCreateTask(object sender, EventArgs e)
@@ -71,6 +93,16 @@ namespace TodoListWebForm
         {
             usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
             usersGridView.DataBind();
+        }
+
+        protected string DisplayListPartner(object arr) {
+            string s = "";
+            List<UsersDTO> arrPartner = (List<UsersDTO>)arr;
+            for (int i = 0; i < arrPartner.Count; i++)
+            {
+                s += "1";
+            }
+            return s;
         }
     }
 }
