@@ -16,13 +16,8 @@
         OnRowDataBound="gvChild_RowDataBound"
         >
         <Columns>
-            <%--<asp:BoundField ControlStyle-CssClass="form-control" DataField="name" HeaderText="NAME" >
-            </asp:BoundField>--%>
-            <asp:TemplateField HeaderText="Name">
-                <ItemTemplate>
-                    <a class="text-primary" href="/usersDetail?id=<%# Eval("id") %>"><%# Eval("name") %></a>
-                </ItemTemplate>
-            </asp:TemplateField>
+            <asp:BoundField ControlStyle-CssClass="form-control" DataField="name" HeaderText="NAME" >
+            </asp:BoundField>
             <asp:BoundField ReadOnly="true" DataField="email" HeaderText="EMAIL" SortExpression="email" />
             <asp:BoundField ReadOnly="true" DataField="role" HeaderText="ROLE" SortExpression="role" />
             <asp:CommandField
@@ -34,6 +29,17 @@
                 HeaderStyle-CssClass="text-center"
                 ShowEditButton="True" ShowHeader="True">
             </asp:CommandField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink 
+                        CssClass="btn btn-light mt-1 btn-sm"
+                        ID="HyperLink1" 
+                        runat="server" 
+                        NavigateUrl='<%# Eval("id", "/usersDetail?id={0}") %>'
+                        Text="Details">
+                    </asp:HyperLink>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 </asp:Content>

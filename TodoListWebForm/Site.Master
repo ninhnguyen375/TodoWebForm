@@ -12,13 +12,23 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src="http://code.jquery.com/jquery.js"></script>
-    <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="toastr.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </head>
 <body>
     <form runat="server">
@@ -43,47 +53,59 @@
         </asp:ScriptManager>
 
         <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-          <div class="container">
-              <a class="navbar-brand" href="/">TODO LIST</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <% string path = HttpContext.Current.Request.Url.AbsolutePath; %>
-                    <li class="nav-item">
-                    <a class="nav-link<% if (path.IndexOf("default") > -1) { %> active <% } %>" href="/">Home</a>
-                    </li>
-                    <% if(Session["role"] != null && Session["role"].Equals("admin")) { %>
+            <div class="container">
+                <a class="navbar-brand" href="/">TODO LIST</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <% string path = HttpContext.Current.Request.Url.AbsolutePath; %>
                         <li class="nav-item">
-                            <a class="nav-link<% if (path.IndexOf("dashboard") > -1) { %> active <% } %>" href="/dashboard">Dashboard</a>
+                            <a class="nav-link<%: path.IndexOf("default") > -1 ? " active" : ""%>" href="/">Home</a>
                         </li>
-                    <% } %>
-                    <% if(Session["name"] == null) { %>
-                        <li class="nav-item">
-                            <a class="nav-link <% if (path.IndexOf("login") > -1) { %> active <% } %>" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link<% if (path.IndexOf("register") > -1) { %> active <% } %>" href="/register">Register</a>
-                        </li>
-                    <% } else { %>
-                        <% if(Session["role"] != null && !Session["role"].Equals("admin")) { %>
+                        <% if (Session["role"] != null && Session["role"].Equals("admin")) { %>
                             <li class="nav-item">
-                                <a class="nav-link<% if (path.IndexOf("tasks") > -1) { %> active <% } %>" href="/tasks">Tasks</a>
+                                <a class="nav-link<%: path.IndexOf("dashboard") > -1 ? " active" : ""%>"
+                                    href="/dashboard">Dashboard</a>
                             </li>
                         <% } %>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#"><span class="mr-3">|</span> <%: Session["name"] %></a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
-                            <asp:Button OnClick="HandleClickLogout" OnClientClick="HandleClickLogout" class="btn btn-primary btn-sm" Text="Logout" runat="server" />
-                        </li>
-                    <% } %>
-                </ul>
-              </div>
-          </div>
+
+                        <% if (Session["name"] == null) { %>
+                            <li class="nav-item">
+                                <a class="nav-link<%: path.IndexOf("login") > -1 ? " active" : ""%>"
+                                    href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link<%: path.IndexOf("register") > -1 ? " active" : ""%>"
+                                    href="/register">Register</a>
+                            </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link<%: path.IndexOf("taskinweek") > -1 ? " active" : ""%>"
+                                    href="/taskinweek">Task In Week</a>
+                            </li>
+                            <% if (Session["role"] != null && !Session["role"].Equals("admin")) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link<%: path.IndexOf("tasks") > -1 ? " active" : ""%>%>"
+                                        href="/tasks">Tasks</a>
+                                </li>
+                            <% } %>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#"><span class="mr-3">|</span> <%: Session["name"] %></a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <asp:Button OnClick="HandleClickLogout" OnClientClick="HandleClickLogout" class="btn btn-primary btn-sm"
+                                    Text="Logout" runat="server" />
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
         </nav>
-        <div class="container body-content mt-5">
+        <div class="container-fluid body-content mt-5">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

@@ -10,7 +10,7 @@ a, a:hover {
 }
 
 .task {
-    width: 500px;
+    width: 200px;
     padding: 10px;
     border-radius: 5px;
     background: white;
@@ -20,11 +20,12 @@ a, a:hover {
     transition: 0.3s;
 }
 
-    .task:hover {
-        background: #eeeeee;
-    }
+.task:hover {
+    background: #f6f6f6;
+}
 
 .task__title {
+    
 }
 
 .task__date {
@@ -37,6 +38,14 @@ a, a:hover {
 
 .task__status {
     margin-left: 5px;
+    font-size: 0.9em;
+    padding: 2px 10px;
+    border-radius: 5px;
+    background: #eeeeee;
+}
+
+.task__private {
+    width: 90px;
     font-size: 0.9em;
     padding: 2px 10px;
     border-radius: 5px;
@@ -81,7 +90,7 @@ textarea {
 }
 .task__users tbody {
     display: flex;
-    max-width: 217px;
+    max-width: 204px;
     overflow: hidden;
 }
 
