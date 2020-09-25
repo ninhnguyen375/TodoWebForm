@@ -331,10 +331,10 @@ namespace TodoListWebForm.App_Code.DAL
 
             if(datetime == null)
             {
-                cmd.Parameters.AddWithValue("@datetime", DateTime.Now.ToString());
+                cmd.Parameters.AddWithValue("@datetime", DateTime.Now.ToString("MM/dd/yyyy"));
             }else
             {
-                cmd.Parameters.AddWithValue("@datetime", datetime);
+                cmd.Parameters.AddWithValue("@datetime", Convert.ToDateTime(datetime).ToString("MM/dd/yyyy"));
             }
 
             SqlDataReader reader = cmd.ExecuteReader();
