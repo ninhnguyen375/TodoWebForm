@@ -97,5 +97,10 @@ namespace TodoListWebForm.App_Code.BLL
         {
             TasksDAL.expiringTask();
         }
+
+        public static int getOwnerByTaskId(int taskId)
+        {
+            return TasksDAL.getOwnerByTaskId(taskId);
+        }
     }
 }

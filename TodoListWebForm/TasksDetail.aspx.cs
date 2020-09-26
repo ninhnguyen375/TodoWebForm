@@ -14,6 +14,10 @@ namespace TodoListWebForm
         TasksDTO task;
 
         List<int> arrPartnerId;
+
+        public bool isOwner;
+
+        public bool isPartner;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["name"] == null)
@@ -32,7 +36,7 @@ namespace TodoListWebForm
             {
                 getValueTask();
                 initValue();
-                // renderActionButtons(); Do not work
+                renderActionButtons();
                 bindComment();
             }
         }
@@ -139,11 +143,38 @@ namespace TodoListWebForm
 
         protected void handleRemindTask(object sender, EventArgs e)
         {
-            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, @"HURRY UP! EVERYONE", true);
+            string content = chatBox.Text;
+            TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, content, true);
             bindComment();
 
             // reset 
             chatBox.Text = "";
+        }
+
+        protected void renderActionButtons()
+        {
+            // Check current user exists in the list of partner or not
+            int partnerIndex = arrPartnerId.FindIndex(u => u == Convert.ToInt32(Session["id"].ToString()));
+
+            // Get owner id 
+            int ownerId = TasksBLL.getOwnerByTaskId(task.ID);
+
+            if (partnerIndex != -1)
+            {
+                isPartner = true;
+            } else
+            {
+                isPartner = false;
+            }
+
+            if (Convert.ToInt32(Session["id"].ToString()) == ownerId)
+            {
+                isOwner = true;
+                isPartner = false;
+            } else
+            {
+                isOwner = false;
+            }
         }
     }
 }

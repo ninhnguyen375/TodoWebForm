@@ -70,8 +70,15 @@
                             </div>
 
                             <div class="mt-4">
+                                <% if (Session["role"].Equals("admin") || (isOwner))
+                                    { %>
                                 <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
                                 <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
+                                <% }
+                                    else if (isPartner)
+                                    { %>
+                                <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
+                                <% } %>
                             </div>
 
                             <div class="row mt-5">

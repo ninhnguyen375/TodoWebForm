@@ -194,7 +194,7 @@
             </div>
 
             <div class="col task-in-week__col">
-                <div class="task-in-week__title">Friday</div>
+                <div class="task-in-week__title">Thursday</div>
                <div class="task-in-week__items">
                     <asp:DataList
                         ClientIDMode="Predictable"
@@ -253,7 +253,7 @@
             </div>
 
             <div class="col task-in-week__col">
-                <div class="task-in-week__title">Saturday</div>
+                <div class="task-in-week__title">Friday</div>
                 <div class="task-in-week__items">
                     <asp:DataList
                         ClientIDMode="Predictable"
@@ -312,7 +312,7 @@
             </div>
             
             <div class="col task-in-week__col">
-                <div class="task-in-week__title">Thursday</div>
+                <div class="task-in-week__title">Saturday</div>
                 <div class="task-in-week__items">
                     <asp:DataList
                         ClientIDMode="Predictable"
