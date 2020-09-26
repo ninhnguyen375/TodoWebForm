@@ -28,19 +28,21 @@
                         <div class="wrap-table">
                             <asp:DataList CssClass="task-of-week" runat="server" ID="mondayDataList">
                                 <ItemTemplate>
-                                    <a href="<%# "/tasksDetail?id=" + Eval("id") %>" class="task-of-week__item">
-                                        <p class="task-of-week__title"><%# Eval("title") %></p>
-                                        <asp:DataList
-                                            runat="server"
-                                            DataSource='<%# Eval("Partners") %>'>
-                                            <ItemTemplate>
-                                                <div class="task-of-week__user" title='<%# Eval("email") %>'>
-                                                    <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
-                                                    <%# Eval("name") %>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                        <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    <a href="<%# "/tasksDetail?id=" + Eval("id") %>">
+                                        <div class="task-of-week__item">
+                                            <p class="task-of-week__title"><%# Eval("title") %></p>
+                                            <asp:DataList
+                                                runat="server"
+                                                DataSource='<%# Eval("Partners") %>'>
+                                                <ItemTemplate>
+                                                    <div class="task-of-week__user" title='<%# Eval("email") %>'>
+                                                        <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
+                                                        <%# Eval("name") %>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:DataList>
+                                            <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                        </div>
                                     </a>
                                 </ItemTemplate>
                             </asp:DataList>
