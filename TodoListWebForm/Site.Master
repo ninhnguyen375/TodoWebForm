@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Todo List</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -14,16 +14,16 @@
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-        crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
+    <script src="Scripts/jquery.js"></script>
+    <script src="Scripts/iziToast.js"></script>
+    <script src="Scripts/toastr.js"></script>
+    <script src="Scripts/popper.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/tata.js"></script>
+    
+
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -84,7 +84,7 @@
                         <% } else { %>
                             <li class="nav-item">
                                 <a class="nav-link<%: path.IndexOf("taskinweek") > -1 ? " active" : ""%>"
-                                    href="/taskinweek">Task In Week</a>
+                                    href="/taskinweek">Tasks Of Week</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link<%: path.IndexOf("tasks") > -1 ? " active" : ""%>"
@@ -97,7 +97,7 @@
                             <li class="nav-item d-flex align-items-center">
                                 <asp:Button 
                                     ToolTip="Logout"
-                                    OnClick="HandleClickLogout" OnClientClick="HandleClickLogout" class="btn btn-primary btn-sm"
+                                    OnClick="HandleClickLogout" OnClientClick="HandleClickLogout" class="btn btn-primary btn-sm fa-icon"
                                     Text="" runat="server" />
                             </li>
                         <% } %>
@@ -113,7 +113,6 @@
                 <p>&copy; <%: DateTime.Now.Year %> - TodoList</p>
             </footer>
         </div>
-
     </form>
 </body>
 </html>

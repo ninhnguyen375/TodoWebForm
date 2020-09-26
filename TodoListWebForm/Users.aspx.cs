@@ -76,8 +76,9 @@ namespace TodoListWebForm
             int userId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
             if(Session["id"].Equals(userId))
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
-                    "toastr_message", "toastr.error('Can not delete this user')", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+                //    "toast", @"iziToast.error({ message: 'Can not delete this user' });", true);
+                Helper.Toast(this, Page.ClientScript, "error", "Can not delete this user");
                 return;
             }
 
@@ -86,7 +87,7 @@ namespace TodoListWebForm
             if(!result)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
-                    "toastr_message", "toastr.error('Can not delete this user')", true);
+                    "toast", @"iziToast.error({ message: 'Can not delete this user' });", true);
             }
             gvBind();
         }

@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Tasks.aspx.cs" Inherits="TodoListWebForm.Tasks" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="row my-3">
+                <%--<div class="row my-3">
                     <div class="col-12 m-0 p-0">
                         <h3 class="font-weight-bold p-0 m-0">Table Tasks of week</h3>
                     </div>
@@ -20,9 +20,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--%>
 
-                <div class="row table-task-of-week">
+                <%--<div class="row table-task-of-week">
                     <div class="col-2">
                         <h3>Monday</h3>
                         <div class="wrap-table">
@@ -173,10 +173,17 @@
                             </asp:DataList>
                         </div>
                     </div>
-                </div>
+                </div>--%>
 
                 <h3 class="font-weight-bold mt-5">All Task</h3>
+
                 <div class="task__wrap">
+                    <div class="d-flex justify-content-end mb-2">
+                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">
+                            <i class="fas fa-plus mr-1"></i>
+                            ADD NEW TASK
+                        </button>
+                    </div>
                     <asp:GridView BorderColor="#eeeeee" DataKeyNames="id" CssClass="table" runat="server" ID="tasksGridView" AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
                         <Columns>
                             <asp:TemplateField HeaderText="ID">
@@ -209,17 +216,22 @@
 
                             <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date"></asp:BoundField>
                             <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date"></asp:BoundField>
-                            <asp:TemplateField HeaderText="Status">
+                            <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "badge badge-primary" : (Eval("status").Equals("expired") ? "badge badge-danger" : "badge badge-success") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Scope">
                                 <ItemTemplate>
-                                    <asp:Label CssClass='<%# Convert.ToBoolean(Eval("private")) ? "badge badge-dark" : "badge badge-warning" %>' ID="Label4" runat="server" Text='<%# Convert.ToBoolean(Eval("private")) ? "Private" : "Public" %>'></asp:Label>
+                                    <div class="task__private">
+                                        <i class='<%# Convert.ToInt32(Eval("private")) == 1 ? "fas fa-lock" : "fas fa-globe" %>'>
+                                        </i>
+                                        <span class="mr-1"></span>
+                                        <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
+                                    </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:CommandField ControlStyle-CssClass="btn btn-danger btn-sm" ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowHeader="True" DeleteText="Delete" />
+                            <asp:CommandField ControlStyle-CssClass="btn btn-danger btn-sm fa-icon" ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowHeader="True" DeleteText=" Delete" />
                         </Columns>
                     </asp:GridView>
                 </div>
@@ -253,7 +265,7 @@
                                     <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
                                 </div>
                                 <div class="form-group">
-                                    <label for="endDate">End Date</label>
+                                    <label for="endDate">File</label>
                                     <asp:FileUpload ID="fileInput" class="form-control" runat="server"></asp:FileUpload>
                                 </div>
                                 <div class="form-group">

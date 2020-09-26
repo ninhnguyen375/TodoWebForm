@@ -13,22 +13,13 @@ namespace TodoListWebForm {
     public partial class TaskInWeek {
         
         /// <summary>
-        /// startDateOfWeek control.
+        /// selectWeek control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label startDateOfWeek;
-        
-        /// <summary>
-        /// endDateOfWeek control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label endDateOfWeek;
+        protected global::System.Web.UI.WebControls.TextBox selectWeek;
         
         /// <summary>
         /// mondayDataList control.
@@ -110,6 +101,15 @@ namespace TodoListWebForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox endDate;
+        
+        /// <summary>
+        /// fileInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileInput;
         
         /// <summary>
         /// usersGridView control.

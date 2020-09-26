@@ -101,7 +101,7 @@
                                     <asp:Button OnClick="handleSubmitComment" CssClass="btn btn-primary mt-2" Text="SUBMIT COMMENT" runat="server" />
                                     <% if (Session["role"].Equals("admin"))
                                         { %>
-                                    <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
+                                    <asp:Button CssClass="btn btn-info ml-3 mt-2" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
                                     <% } %>
                                 </div>
                             </div>

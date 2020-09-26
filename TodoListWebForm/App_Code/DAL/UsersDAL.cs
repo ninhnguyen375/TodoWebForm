@@ -114,31 +114,6 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.closeConnection();
             return true;
         }
-        public static DataTable getTasksOfUser(int userId)
-        {
-            ConnectionDatabase.getConnection();
-            string query = @"select * 
-                            from tasks
-                            where id in (
-                                select taskId
-                                from usersTasks
-                                where usersTasks.userId = @userId
-                            )
-                            order by case when status = 'expired' then 1
-			                      when status = 'inprogress' then 2
-			                      when status = 'done' then 3
-			                      else 4
-		                     end asc, startDate desc";
-            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
-            cmd.Parameters.AddWithValue("@userId", userId);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-
-            da.Fill(ds);
-            ConnectionDatabase.closeConnection();
-
-            return ds.Tables[0];
-        }
 
         public static List<int> getListPartnerIdFollowTaskId(int taskId)
         {

@@ -5,11 +5,12 @@
     <div class="container-fluid task-in-week">
         <div class="row justify-content-between">
             <div>
-                <b><asp:Label runat="server" ID="startDateOfWeek" /></b>
-                -
-                <b><asp:Label runat="server" ID="endDateOfWeek" /></b>
+                <div class="ml-auto d-flex justify-content-end">
+                    <asp:TextBox ID="selectWeek" CssClass="form-control ml-2" Width="200" TextMode="Week" runat="server"></asp:TextBox>
+                    <asp:Button EnableViewState=false CssClass="btn btn-primary ml-2" OnClientClick="handleSelectWeek" Text="Filter" runat="server" OnClick="handleSelectWeek" />
+                </div>
             </div>
-            <button" data-toggle="modal" data-target="#addTaskModal" class="btn btn-primary">
+            <button type="button" data-toggle="modal" data-target="#addTaskModal" class="btn btn-primary">
                 <i class="fas fa-plus mr-1"></i>
                 ADD NEW TASK
             </button>
@@ -45,11 +46,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -98,11 +105,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -151,11 +164,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -204,11 +223,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -257,11 +282,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -310,11 +341,17 @@
                                             runat="server"
                                             DataSource='<%# Eval("Partners") %>'>
                                             <ItemTemplate>
-                                                <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                <% if(Session["role"].Equals("admin")) { %>
+                                                    <a href="/usersDetail?id=<%# Eval("id") %>">
+                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </a>
+                                                <% } else { %>
                                                     <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
-                                                        <i class="fas fa-user"></i>
+                                                            <i class="fas fa-user"></i>
                                                     </div>
-                                                </a>
+                                                <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
@@ -358,7 +395,12 @@
                             <div class="form-group">
                                 <label for="endDate">End Date</label>
                                 <asp:TextBox TextMode="Date" ID="endDate" class="form-control" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
+                                <asp:RequiredFieldValidator Display="Dynamic" CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
+                                <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">File</label>
+                                <asp:FileUpload ID="fileInput" class="form-control" runat="server"></asp:FileUpload>
                             </div>
                             <div class="form-group">
                                 <label for="endDate">Select partner</label>

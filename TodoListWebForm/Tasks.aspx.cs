@@ -23,6 +23,7 @@ namespace TodoListWebForm
                 Response.Redirect("/login");
             }
 
+
             if (!IsPostBack)
             {
                 GridViewTaskBind();
@@ -33,23 +34,23 @@ namespace TodoListWebForm
 
         private void GridViewTasksDayOfWeek(string datetime)
         {
-            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 2, datetime);
-            mondayDataList.DataBind();
+            //mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 2, datetime);
+            //mondayDataList.DataBind();
 
-            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 3, datetime);
-            tuesdayDataList.DataBind();
+            //tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 3, datetime);
+            //tuesdayDataList.DataBind();
 
-            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 4, datetime);
-            wednesdayDataList.DataBind();
+            //wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 4, datetime);
+            //wednesdayDataList.DataBind();
 
-            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 5, datetime);
-            thursdayDataList.DataBind();
+            //thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 5, datetime);
+            //thursdayDataList.DataBind();
 
-            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 6, datetime);
-            fridayDataList.DataBind();
+            //fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 6, datetime);
+            //fridayDataList.DataBind();
 
-            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 7, datetime);
-            saturdayDatList.DataBind();
+            //saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(Convert.ToInt32(Session["id"].ToString()), 7, datetime);
+            //saturdayDatList.DataBind();
         }
 
         protected void HandleCreateTask(object sender, EventArgs e)
@@ -90,12 +91,12 @@ namespace TodoListWebForm
             int ownerId = Convert.ToInt32(Session["id"].ToString());
             TasksBLL.CreateTask(task, arr, ownerId);
 
+            TasksBLL.expiringTask();
             GridViewTaskBind();
             GridViewUserBind();
             GridViewTasksDayOfWeek(null); // get current date time
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
-                    "toastr_message", "toastr.success('Create task successfully')", true);
+            Helper.Toast(this, Page.ClientScript, "success", "Create task sussess");
         }
 
         protected void HandleDeleteTask(object sender, GridViewDeleteEventArgs e)
@@ -107,6 +108,8 @@ namespace TodoListWebForm
 
         private void GridViewTaskBind()
         {
+            TasksBLL.expiringTask();
+
             tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(Convert.ToInt32(Session["id"].ToString()));
             tasksGridView.DataBind();
         }
@@ -119,22 +122,22 @@ namespace TodoListWebForm
 
         protected void handleSelectWeek (object sender, EventArgs e)
         {
-            string s = selectWeek.Text;
+            //string s = selectWeek.Text;
 
-            if(!s.Equals(""))
-            {
-                string[] split = s.Split('-');
-                string year = split[0];
-                string Wweek = split[1];
-                string week = Wweek.Split('W')[1];
+            //if(!s.Equals(""))
+            //{
+            //    string[] split = s.Split('-');
+            //    string year = split[0];
+            //    string Wweek = split[1];
+            //    string week = Wweek.Split('W')[1];
 
-                DateTime date = FirstDateOfWeekISO8601(Convert.ToInt32(year), Convert.ToInt32(week));
-                GridViewTasksDayOfWeek(date.ToString());
-            }else
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
-                    "toastr_message", "toastr.error('Please choose day')", true);
-            }
+            //    DateTime date = FirstDateOfWeekISO8601(Convert.ToInt32(year), Convert.ToInt32(week));
+            //    GridViewTasksDayOfWeek(date.ToString());
+            //}else
+            //{
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+            //        "toastr_message", "toastr.error('Please choose day')", true);
+            //}
         }
 
         public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)

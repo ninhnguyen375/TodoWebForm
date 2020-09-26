@@ -30,6 +30,7 @@ namespace TodoListWebForm
 
             if (!IsPostBack)
             {
+                getValueTask();
                 initValue();
                 // renderActionButtons(); Do not work
                 bindComment();
@@ -89,6 +90,8 @@ namespace TodoListWebForm
             }
             TasksBLL.updateTask(newTask, arr);
 
+            Helper.Toast(this, Page.ClientScript, "success", "Update task success");
+            TasksBLL.expiringTask();
             getValueTask();
             initValue();
         }
@@ -112,6 +115,8 @@ namespace TodoListWebForm
 
         private void getValueTask()
         {
+            TasksBLL.expiringTask();
+
             int taskId = Convert.ToInt32(Request.QueryString["id"]);
             task = TasksBLL.getTaskByTaskId(taskId);
         }
@@ -139,22 +144,6 @@ namespace TodoListWebForm
 
             // reset 
             chatBox.Text = "";
-        }
-
-        protected void renderActionButtons()
-        {
-            int index = arrPartnerId.FindIndex(u => u == Convert.ToInt32(Session["id"].ToString()));
-
-            if(Session["role"].ToString().Equals("admin") || index != -1)
-            {
-                actionButtons.Controls.Add(new LiteralControl(@"
-                                <asp:Button CssClass='btn btn-primary' OnClick='handleUpdateTaskDetail' Text='UPDATE TASK' runat='server' />
-                                <asp:Button CssClass='btn btn-danger ml-3' OnClick='HandleDeleteTask' Text='DELETE TASK' runat='server' />
-                        "));
-            }
-            else {
-                actionButtons.Controls.Add(new LiteralControl("Null"));
-            }
         }
     }
 }

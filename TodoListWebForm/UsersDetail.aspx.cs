@@ -37,9 +37,7 @@ namespace TodoListWebForm
             lbName.Text = user.Name;
             lbRole.Text = user.Role;
 
-            List<ResponseTaskDTO> tasksOfUser = UsersBLL.getTasksOfUser(userId);
-            DataList1.DataSource = tasksOfUser;
-            DataList1.DataBind();
+            TasksBLL.expiringTask();
         }
     }
 }

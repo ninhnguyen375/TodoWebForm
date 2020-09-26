@@ -33,12 +33,6 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
                 temp.Partners = partners;
-                
-                if (DateTime.Now.CompareTo(Convert.ToDateTime(arrTasks[i].endDate)) > 0 && !arrTasks[i].Status.Equals(TaskStatus.Done))
-                {
-                    TasksBLL.updateStatusOfTask(arrTasks[i].ID, TaskStatus.Expired);
-                    arrTasks[i].Status = TaskStatus.Expired;
-                }
 
                 arrFinal.Add(temp);
             }
@@ -61,12 +55,6 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
                 temp.Partners = partners;
-
-                if (DateTime.Now.CompareTo(Convert.ToDateTime(arrTasks[i].endDate)) > 0 && !arrTasks[i].Status.Equals(TaskStatus.Done))
-                {
-                    TasksBLL.updateStatusOfTask(arrTasks[i].ID, TaskStatus.Expired);
-                    arrTasks[i].Status = TaskStatus.Expired;
-                }
 
                 arrFinal.Add(temp);
             }
@@ -104,6 +92,10 @@ namespace TodoListWebForm.App_Code.BLL
         public static void updateStatusOfTask(int taskId, string status)
         {
             TasksDAL.updateStatusOfTask(taskId, status);
+        }
+        public static void expiringTask()
+        {
+            TasksDAL.expiringTask();
         }
     }
 }

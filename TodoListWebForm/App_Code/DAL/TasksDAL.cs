@@ -75,16 +75,28 @@ namespace TodoListWebForm.App_Code.DAL
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)
         {
             ConnectionDatabase.getConnection();
-            string query = @"insert into tasks(title, startDate, endDate, status, private, urlFile)
+            string query;
+            if(task.urlFile == null)
+            {
+                query = @"insert into tasks(title, startDate, endDate, status, private)
+                            values(@title, @startDate, @endDate, @status, @private); 
+                            select MAX(id) FROM tasks";
+            } else
+            {
+                query = @"insert into tasks(title, startDate, endDate, status, private, urlFile)
                             values(@title, @startDate, @endDate, @status, @private, @urlFile); 
                             select MAX(id) FROM tasks";
+            }
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@title", task.Title);
             cmd.Parameters.AddWithValue("@startDate", Convert.ToDateTime(task.startDate));
             cmd.Parameters.AddWithValue("@endDate", Convert.ToDateTime(task.endDate));
             cmd.Parameters.AddWithValue("@status", task.Status);
             cmd.Parameters.AddWithValue("@private", task.Private);
-            cmd.Parameters.AddWithValue("@urlFile", task.urlFile);
+            if(task.urlFile != null)
+            {
+                cmd.Parameters.AddWithValue("@urlFile", task.urlFile);
+            }
 
             Int32 lastestId = (Int32)cmd.ExecuteScalar();
 
@@ -366,6 +378,21 @@ namespace TodoListWebForm.App_Code.DAL
                 reader.NextResult();
             }
             return arr;
+        }
+        public static void expiringTask ()
+        {
+            ConnectionDatabase.getConnection();
+
+            string query = @"update tasks
+                            set status = 'expired'
+                            where id in (select id
+			                            from tasks
+			                            where endDate < Convert(date, getdate())
+				                            and status = 'inprogress')";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.ExecuteNonQuery();
+
+            ConnectionDatabase.closeConnection();
         }
     }
 }

@@ -15,6 +15,8 @@ namespace TodoListWebForm
             {
                 Response.Redirect("/login");
             }
+
+            Response.Redirect("/taskinweek");
         }
     }
 }

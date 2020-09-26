@@ -1,7 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');                      
 
 body {
-    font-family: 'Barlow', "Font Awesome 5 Pro", sans-serif;
+    font-family: 'Barlow', 'Font Awesome 5 Pro', sans-serif;
+}
+
+.fa-icon {
+    font-family: 'Font Awesome 5 Pro', sans-serif;
 }
 
 a, a:hover {
@@ -57,9 +61,6 @@ a, a:hover {
 }
 
 .task__wrap {
-    height: 600px;
-    overflow-y: scroll;
-    margin-top: 30px;
 }
 
 /*label {
