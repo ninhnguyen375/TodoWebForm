@@ -379,6 +379,28 @@ namespace TodoListWebForm.App_Code.DAL
             }
             return arr;
         }
+        public static bool isTaskHasRemind(int taskId)
+        {
+            ConnectionDatabase.getConnection();
+
+            string query = @"select 1
+                            from comments
+                            where taskId = @taskId
+	                            and isRemind = 1";
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@taskId", taskId);
+
+            int rowEffected = Convert.ToInt32(cmd.ExecuteScalar());
+
+            ConnectionDatabase.closeConnection();
+
+            if (rowEffected > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public static void expiringTask ()
         {
             ConnectionDatabase.getConnection();

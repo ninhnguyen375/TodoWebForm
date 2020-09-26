@@ -32,6 +32,7 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.endDate = arrTasks[i].endDate;
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
+                temp.OwnerId = getOwnerByTaskId(arrTasks[i].ID);
                 temp.Partners = partners;
 
                 arrFinal.Add(temp);
@@ -54,11 +55,17 @@ namespace TodoListWebForm.App_Code.BLL
                 temp.endDate = arrTasks[i].endDate;
                 temp.Status = arrTasks[i].Status;
                 temp.Private = arrTasks[i].Private;
+                temp.HasRemind = TasksDAL.isTaskHasRemind(arrTasks[i].ID);
                 temp.Partners = partners;
 
                 arrFinal.Add(temp);
             }
             return arrFinal;
+        }
+
+        public static bool isTaskHasRemind (int taskId)
+        {
+            return TasksDAL.isTaskHasRemind(taskId);
         }
 
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)

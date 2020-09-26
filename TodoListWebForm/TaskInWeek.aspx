@@ -60,7 +60,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                            <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                                <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                            </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -119,7 +122,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -178,7 +184,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -237,7 +246,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -296,7 +308,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -355,7 +370,10 @@
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>

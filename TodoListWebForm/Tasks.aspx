@@ -184,7 +184,9 @@
                             ADD NEW TASK
                         </button>
                     </div>
-                    <asp:GridView BorderColor="#eeeeee" DataKeyNames="id" CssClass="table" runat="server" ID="tasksGridView" AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
+                    <asp:GridView BorderColor="#EEEEEE" 
+                        DataKeyNames="id" CssClass="table" runat="server" ID="tasksGridView" 
+                        AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
                         <Columns>
                             <asp:TemplateField HeaderText="ID">
                                 <ItemTemplate>
@@ -211,15 +213,19 @@
                                         </ItemTemplate>
                                     </asp:DataList>
                                 </ItemTemplate>
+
                             </asp:TemplateField>
 
 
-                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date"></asp:BoundField>
-                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date"></asp:BoundField>
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date">
+                            </asp:BoundField>
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date">
+                            </asp:BoundField>
                             <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
                                 </ItemTemplate>
+
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Scope">
                                 <ItemTemplate>
@@ -231,7 +237,6 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:CommandField ControlStyle-CssClass="btn btn-danger btn-sm fa-icon" ButtonType="Button" HeaderText="Actions" ShowDeleteButton="True" ShowHeader="True" DeleteText=" Delete" />
                         </Columns>
                     </asp:GridView>
                 </div>
