@@ -62,13 +62,20 @@
                                         <asp:CheckBox runat="server" ID="privateScope" />
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        Attached File: <asp:HyperLink Text="Download" ID="attachedFile" runat="server" />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
+
+                            <div class="mt-4">
+                                <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
+                                <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
                             </div>
-                            <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
-                            <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
+
                             <div class="row mt-5">
-                                <h3 class="font-weight-bold">User comment:</h3>
+                                <h3 class="font-weight-bold ml-3">User comment:</h3>
                                 <asp:DataList CssClass="col-lg-12" ID="commentsDataList" runat="server">
                                     <ItemTemplate>
                                         <div class="comment">
@@ -92,8 +99,9 @@
                                 <div class="col-12">
                                     <asp:TextBox CssClass="w-100 p-4 form-control" TextMode="MultiLine" runat="server" ID="chatBox"></asp:TextBox>
                                     <asp:Button OnClick="handleSubmitComment" CssClass="btn btn-primary mt-2" Text="SUBMIT COMMENT" runat="server" />
-                                    <% if(Session["role"].Equals("admin")) { %>
-                                        <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
+                                    <% if (Session["role"].Equals("admin"))
+                                        { %>
+                                    <asp:Button CssClass="btn btn-info ml-3" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
                                     <% } %>
                                 </div>
                             </div>

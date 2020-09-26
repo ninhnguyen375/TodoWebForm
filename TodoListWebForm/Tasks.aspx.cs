@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -58,6 +59,20 @@ namespace TodoListWebForm
             String endDateTask = endDate.Text;
             String statusTask = TaskStatus.InProgress;
             bool IsPrivate = privateScope.Checked;
+            string urlFile = null;
+
+            if(fileInput.HasFile)
+            {
+                try
+                {
+                    string fileName = Path.GetFileName(fileInput.FileName);
+                    fileInput.SaveAs(Server.MapPath("~") + "/Upload/" + fileName);
+                    urlFile = "/Upload/" + fileName;
+                }   catch (Exception ex)
+                {
+
+                }
+            }
 
             // find list selected user
             List<int> arr = new List<int>();
@@ -71,12 +86,16 @@ namespace TodoListWebForm
                 }
             }
 
-            TasksDTO task = new TasksDTO(titleTask, startDateTask, endDateTask, statusTask, IsPrivate);
+            TasksDTO task = new TasksDTO(titleTask, startDateTask, endDateTask, statusTask, IsPrivate, urlFile);
             int ownerId = Convert.ToInt32(Session["id"].ToString());
             TasksBLL.CreateTask(task, arr, ownerId);
 
-            GridViewTasksDayOfWeek(null); // get current date time
             GridViewTaskBind();
+            GridViewUserBind();
+            GridViewTasksDayOfWeek(null); // get current date time
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+                    "toastr_message", "toastr.success('Create task successfully')", true);
         }
 
         protected void HandleDeleteTask(object sender, GridViewDeleteEventArgs e)
@@ -96,16 +115,6 @@ namespace TodoListWebForm
         {
             usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
             usersGridView.DataBind();
-        }
-
-        protected string DisplayListPartner(object arr) {
-            string s = "";
-            List<UsersDTO> arrPartner = (List<UsersDTO>)arr;
-            for (int i = 0; i < arrPartner.Count; i++)
-            {
-                s += "1";
-            }
-            return s;
         }
 
         protected void handleSelectWeek (object sender, EventArgs e)

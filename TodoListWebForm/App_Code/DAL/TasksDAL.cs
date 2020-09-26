@@ -58,12 +58,14 @@ namespace TodoListWebForm.App_Code.DAL
                     string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0]; 
                     string status = reader.GetString(4);
                     bool Private = Convert.ToBoolean(reader.GetValue(5));
+                    string urlFile = reader["urlFile"].ToString();
                     arr.Add(new TasksDTO(id,
                                          title,
                                          startDate,
                                          endDate,
                                          status,
-                                         Private));
+                                         Private,
+                                         urlFile));
                 }
                 reader.NextResult();
             }
@@ -73,8 +75,8 @@ namespace TodoListWebForm.App_Code.DAL
         public static int CreateTask(TasksDTO task, List<int> arrUser, int ownerId)
         {
             ConnectionDatabase.getConnection();
-            string query = @"insert into tasks(title, startDate, endDate, status, private)
-                            values(@title, @startDate, @endDate, @status, @private); 
+            string query = @"insert into tasks(title, startDate, endDate, status, private, urlFile)
+                            values(@title, @startDate, @endDate, @status, @private, @urlFile); 
                             select MAX(id) FROM tasks";
             SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
             cmd.Parameters.AddWithValue("@title", task.Title);
@@ -82,6 +84,8 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@endDate", Convert.ToDateTime(task.endDate));
             cmd.Parameters.AddWithValue("@status", task.Status);
             cmd.Parameters.AddWithValue("@private", task.Private);
+            cmd.Parameters.AddWithValue("@urlFile", task.urlFile);
+
             Int32 lastestId = (Int32)cmd.ExecuteScalar();
 
             // add partner into task
@@ -154,7 +158,8 @@ namespace TodoListWebForm.App_Code.DAL
                 string taskEndDate = reader["endDate"].ToString();
                 string taskStatus = reader["status"].ToString();
                 bool taskPrivate = Convert.ToBoolean(reader["private"]);
-                task = new TasksDTO(id, taskTitle, taskStartDate, taskEndDate, taskStatus, taskPrivate);
+                string urlFile = reader["urlFile"].ToString();
+                task = new TasksDTO(id, taskTitle, taskStartDate, taskEndDate, taskStatus, taskPrivate, urlFile);
             }
             ConnectionDatabase.closeConnection();
             return task;
@@ -349,12 +354,14 @@ namespace TodoListWebForm.App_Code.DAL
                     string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0];
                     string status = reader.GetString(4);
                     bool Private = Convert.ToBoolean(reader.GetValue(5));
+                    string urlFile = reader["urlFile"].ToString();
                     arr.Add(new TasksDTO(id,
                                          title,
                                          startDate,
                                          endDate,
                                          status,
-                                         Private));
+                                         Private,
+                                         urlFile));
                 }
                 reader.NextResult();
             }

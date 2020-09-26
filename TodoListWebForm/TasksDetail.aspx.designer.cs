@@ -67,6 +67,24 @@ namespace TodoListWebForm {
         protected global::System.Web.UI.WebControls.CheckBox privateScope;
         
         /// <summary>
+        /// attachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink attachedFile;
+        
+        /// <summary>
+        /// actionButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel actionButtons;
+        
+        /// <summary>
         /// commentsDataList control.
         /// </summary>
         /// <remarks>

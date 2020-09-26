@@ -12,6 +12,8 @@ namespace TodoListWebForm
     public partial class TasksDetail : System.Web.UI.Page
     {
         TasksDTO task;
+
+        List<int> arrPartnerId;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["name"] == null)
@@ -29,6 +31,7 @@ namespace TodoListWebForm
             if (!IsPostBack)
             {
                 initValue();
+                // renderActionButtons(); Do not work
                 bindComment();
             }
         }
@@ -40,12 +43,13 @@ namespace TodoListWebForm
             endDate.Text = DateTime.Parse(task.endDate).ToLocalTime().ToString("yyyy-MM-dd");
             status.Value = task.Status;
             privateScope.Checked = task.Private;
+            attachedFile.Text = task.urlFile;
+            attachedFile.NavigateUrl = "~" + task.urlFile;
 
             // load partners 
             bindPartner();
 
-
-            List<int> arrPartnerId = UsersBLL.getListPartnerIdFollowTaskId(task.ID);
+            arrPartnerId = UsersBLL.getListPartnerIdFollowTaskId(task.ID);
 
             // check partners
             foreach (GridViewRow row in usersGridView.Rows)
@@ -70,7 +74,7 @@ namespace TodoListWebForm
             String statusTask = status.Value;
             bool IsPrivate = privateScope.Checked;
 
-            TasksDTO newTask = new TasksDTO(task.ID, titleTask, startDateTask, endDateTask, statusTask, IsPrivate);
+            TasksDTO newTask = new TasksDTO(task.ID, titleTask, startDateTask, endDateTask, statusTask, IsPrivate, task.urlFile);
 
             // get list partner
             List<int> arr = new List<int>();
@@ -135,6 +139,22 @@ namespace TodoListWebForm
 
             // reset 
             chatBox.Text = "";
+        }
+
+        protected void renderActionButtons()
+        {
+            int index = arrPartnerId.FindIndex(u => u == Convert.ToInt32(Session["id"].ToString()));
+
+            if(Session["role"].ToString().Equals("admin") || index != -1)
+            {
+                actionButtons.Controls.Add(new LiteralControl(@"
+                                <asp:Button CssClass='btn btn-primary' OnClick='handleUpdateTaskDetail' Text='UPDATE TASK' runat='server' />
+                                <asp:Button CssClass='btn btn-danger ml-3' OnClick='HandleDeleteTask' Text='DELETE TASK' runat='server' />
+                        "));
+            }
+            else {
+                actionButtons.Controls.Add(new LiteralControl("Null"));
+            }
         }
     }
 }

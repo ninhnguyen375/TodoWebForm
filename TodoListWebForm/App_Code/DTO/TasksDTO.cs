@@ -11,16 +11,18 @@ namespace TodoListWebForm.App_Code.DTO
         {
 
         }
-        public TasksDTO(string title, string startDate, string endDate, string status, bool privateScope)
+
+        public TasksDTO(string title, string startDate, string endDate, string status, bool privateScope, string urlFile)
         {
             this.Title = title;
             this.startDate = startDate;
             this.endDate = endDate;
             this.Status = status;
             this.Private = privateScope;
+            this.urlFile = urlFile;
         }
 
-        public TasksDTO(int id, string title, string startDate, string endDate, string status, bool privateScope)
+        public TasksDTO(int id, string title, string startDate, string endDate, string status, bool privateScope, string urlFile)
         {
             this.ID = id;
             this.Title = title;
@@ -28,6 +30,7 @@ namespace TodoListWebForm.App_Code.DTO
             this.endDate = endDate;
             this.Status = status;
             this.Private = privateScope;
+            this.urlFile = urlFile;
         }
 
         public int ID { get; set; }
@@ -36,6 +39,6 @@ namespace TodoListWebForm.App_Code.DTO
         public string endDate { get; set; }
         public string Status { get; set; }
         public bool Private { get; set; }
-
+        public string urlFile { get; set; }
     }
 }

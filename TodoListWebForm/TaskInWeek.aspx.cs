@@ -87,7 +87,7 @@ namespace TodoListWebForm
                 }
             }
 
-            TasksDTO task = new TasksDTO(titleTask, startDateTask, endDateTask, statusTask, IsPrivate);
+            TasksDTO task = new TasksDTO(titleTask, startDateTask, endDateTask, statusTask, IsPrivate, null); // edit cai nay nha Ninh
             int ownerId = Convert.ToInt32(Session["id"].ToString());
             TasksBLL.CreateTask(task, arr, ownerId);
 
