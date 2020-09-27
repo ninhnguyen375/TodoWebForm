@@ -10,18 +10,18 @@
                         <div>
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <asp:TextBox TextMode="MultiLine" ID="title" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox TextMode="MultiLine" ID="title" CssClass="form-control" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Title is required" ControlToValidate="title" runat="server" />
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-6">
                                     <label for="startDate">Start Date</label>
-                                    <asp:TextBox TextMode="Date" ID="startDate" class="form-control" runat="server"></asp:TextBox>
+                                    <asp:TextBox TextMode="Date" ID="startDate" CssClass="form-control" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="endDate">End Date</label>
-                                    <asp:TextBox TextMode="Date" ID="endDate" class="form-control" runat="server"></asp:TextBox>
+                                    <asp:TextBox TextMode="Date" ID="endDate" CssClass="form-control" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator Display="Dynamic" CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
                                     <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
                                 </div>
@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="form-group col-lg-6">
                                     <label for="endDate">Partners</label>
-                                    <asp:GridView EnablePersistedSelection="true" DataKeyNames="id" ID="usersGridView" runat="server" AutoGenerateColumns="False" CssClass="table table-sm" BorderColor="#eeeeee">
+                                    <asp:GridView ena EnablePersistedSelection="true" DataKeyNames="id" ID="usersGridView" runat="server" AutoGenerateColumns="False" CssClass="table table-sm" BorderColor="#eeeeee">
                                         <Columns>
                                             <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-Width="60">
                                                 <ItemTemplate>

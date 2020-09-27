@@ -37,6 +37,7 @@ namespace TodoListWebForm
                 getValueTask();
                 initValue();
                 renderActionButtons();
+                loadDisEnInput();
                 bindComment();
             }
         }
@@ -98,6 +99,8 @@ namespace TodoListWebForm
             TasksBLL.expiringTask();
             getValueTask();
             initValue();
+            renderActionButtons();
+            loadDisEnInput();
         }
 
         private void bindPartner()
@@ -174,6 +177,48 @@ namespace TodoListWebForm
             } else
             {
                 isOwner = false;
+            }
+        }
+
+        protected void loadDisEnInput()
+        {
+            if (!Session["role"].Equals("admin") && !isOwner && !isPartner)
+            {
+                title.Enabled = false;
+                startDate.Enabled = false;
+                endDate.Enabled = false;
+                status.Disabled = true;
+                privateScope.Enabled = false;
+
+                foreach(GridViewRow row in usersGridView.Rows)
+                {
+                    var checkbox = (CheckBox) row.FindControl("checkbox");
+                    
+                    if (!checkbox.Checked)
+                    {
+                        checkbox.Enabled = false;
+                    } else
+                    {
+                        checkbox.Style.Add("pointer-events", "none");
+                    }
+                }
+            } else 
+            {
+                // Get owner id 
+                int ownerId = TasksBLL.getOwnerByTaskId(task.ID);
+
+                if (isOwner || isPartner)
+                {
+                    foreach (GridViewRow row in usersGridView.Rows)
+                    {
+                        var checkbox = (CheckBox) row.FindControl("checkbox");
+
+                        if (checkbox.Checked && Convert.ToInt32(row.Cells[1].Text) == ownerId)
+                        {
+                            checkbox.Style.Add("pointer-events", "none");
+                        }
+                    }
+                }
             }
         }
     }
