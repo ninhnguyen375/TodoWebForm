@@ -110,8 +110,31 @@ namespace TodoListWebForm
         {
             TasksBLL.expiringTask();
 
-            tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(Convert.ToInt32(Session["id"].ToString()));
+            tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(Convert.ToInt32(Session["id"]));
             tasksGridView.DataBind();
+
+            int userId;
+            if(Session["role"].Equals(Role.Admin))
+            {
+                userId = -1;
+                taskListHeader.Text = "ALL TASKS";
+                // Change title
+                GridViewPublicTasks.Visible = false;
+                taskListPublicHeader.Visible = false;
+                // Change grid view
+                tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(userId);
+                tasksGridView.DataBind();
+            } else
+            {
+                userId = Convert.ToInt32(Session["id"]);
+
+                tasksGridView.DataSource = TasksBLL.GetAllTasksByUserId(userId);
+                tasksGridView.DataBind();
+
+                GridViewPublicTasks.DataSource = TasksBLL.GetAllTasksPublicExcludeUserId(userId);
+                GridViewPublicTasks.DataBind();
+            }
+
         }
 
         private void GridViewUserBind()

@@ -69,15 +69,12 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4">
-                                <% if (Session["role"].Equals("admin") || (isOwner))
-                                    { %>
-                                <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
-                                <asp:Button CssClass="btn btn-danger ml-3" OnClick="HandleDeleteTask" Text="DELETE TASK" runat="server" />
-                                <% }
-                                    else if (isPartner)
-                                    { %>
-                                <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
+                            <div class="mt-4 d-flex justify-content-end" style="position: sticky;bottom: 10px">
+                                <% if (Session["role"].Equals("admin") || (isOwner)) { %>
+                                    <asp:Button OnClientClick="return confirm('Are you sure?')" CssClass="btn btn-danger fa-icon mr-2" OnClick="HandleDeleteTask" Text="  DELETE TASK" runat="server" />
+                                    <asp:Button CssClass="btn btn-primary fa-icon" OnClick="handleUpdateTaskDetail" Text="  UPDATE TASK" runat="server" />
+                                <% } else if (isPartner) { %>
+                                    <asp:Button CssClass="btn btn-primary" OnClick="handleUpdateTaskDetail" Text="UPDATE TASK" runat="server" />
                                 <% } %>
                             </div>
 
@@ -88,10 +85,10 @@
                                         <div class="comment">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h3 class="comment__name"><%# Eval("name") %>< <%# Eval("email") %> ></h3>
+                                                    <h3 class="comment__name"><%# Eval("name") %> - <%# Eval("email") %></h3>
                                                     <p class="comment__content <%# Convert.ToBoolean(Eval("isRemind")) ? "alert-danger" : "" %>">
                                                         <span class="<%# Convert.ToBoolean(Eval("isRemind")) ? "badge badge-danger p-3" : "" %>">
-                                                            <i class="<%# Convert.ToBoolean(Eval("isRemind")) ? "fas fa-bell" : "" %>" style="font-size: 1.3em"></i>
+                                                            <i class="<%# Convert.ToBoolean(Eval("isRemind")) ? "fas fa-bell" : "" %>" style="font-size: 1.7em"></i>
                                                         </span>
                                                         <span class="ml-2"><%# Eval("content") %></span>
                                                     </p>
@@ -104,11 +101,11 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-12">
-                                    <asp:TextBox CssClass="w-100 p-4 form-control" TextMode="MultiLine" runat="server" ID="chatBox"></asp:TextBox>
-                                    <asp:Button OnClick="handleSubmitComment" CssClass="btn btn-primary mt-2" Text="SUBMIT COMMENT" runat="server" />
+                                    <asp:TextBox Display="Dynamic" CssClass="w-100 p-4 form-control" TextMode="MultiLine" runat="server" ID="chatBox"></asp:TextBox>
+                                    <asp:Button OnClick="handleSubmitComment" CssClass="btn btn-primary mt-2" Text="  SUBMIT COMMENT" runat="server" />
                                     <% if (Session["role"].Equals("admin"))
                                         { %>
-                                    <asp:Button CssClass="btn btn-info ml-3 mt-2" OnClick="handleRemindTask" Text="REMIND TASK" runat="server" />
+                                    <asp:Button CssClass="btn btn-warning ml-2 mt-2" OnClick="handleRemindTask" Text="  REMIND TASK" runat="server" />
                                     <% } %>
                                 </div>
                             </div>

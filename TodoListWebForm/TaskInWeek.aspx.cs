@@ -22,12 +22,19 @@ namespace TodoListWebForm
             }
             if (!IsPostBack)
             {
-                GridViewTasksDayOfWeek(null);
+                GridViewUserBind();
+                GridViewTasksDayOfWeek(null, false);
             }
+        }
+        private void GridViewUserBind()
+        {
+            usersGridView.DataSource = UsersBLL.getListUsersExceptCurrentUser(Convert.ToInt32(Session["id"].ToString()));
+            usersGridView.DataBind();
         }
         protected void handleSelectWeek(object sender, EventArgs e)
         {
             string s = selectWeek.Text;
+            bool onlyMine = Convert.ToBoolean(cbOnlyMine.Checked);
 
             if (!s.Equals(""))
             {
@@ -37,43 +44,44 @@ namespace TodoListWebForm
                 string week = Wweek.Split('W')[1];
 
                 DateTime date = Helper.FirstDateOfWeekISO8601(Convert.ToInt32(year), Convert.ToInt32(week));
-                GridViewTasksDayOfWeek(date.ToString());
+                GridViewTasksDayOfWeek(date.ToString(), onlyMine);
             }
             else
             {
-                Helper.Toast(this, Page.ClientScript, "warning", "Please select Week");
+                GridViewTasksDayOfWeek(null, onlyMine);
             }
         }
-        private void GridViewTasksDayOfWeek(string datetime)
+        private void GridViewTasksDayOfWeek(string datetime, bool onlyMine)
         {
             int userId = -1;
 
             if (Session["role"] != null && Session["role"].Equals(Role.Admin))
             {
                 userId = -1;
-            } else
+            }
+            else
             {
                 userId = Convert.ToInt32(Session["id"]);
             }
 
             TasksBLL.expiringTask();
 
-            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 2, datetime);
+            mondayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 2, datetime, onlyMine);
             mondayDataList.DataBind();
 
-            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 3, datetime);
+            tuesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 3, datetime, onlyMine);
             tuesdayDataList.DataBind();
 
-            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 4, datetime);
+            wednesdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 4, datetime, onlyMine);
             wednesdayDataList.DataBind();
 
-            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 5, datetime);
+            thursdayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 5, datetime, onlyMine);
             thursdayDataList.DataBind();
 
-            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 6, datetime);
+            fridayDataList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 6, datetime, onlyMine);
             fridayDataList.DataBind();
 
-            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 7, datetime);
+            saturdayDatList.DataSource = TasksBLL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, 7, datetime, onlyMine);
             saturdayDatList.DataBind();
         }
         protected DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
@@ -121,7 +129,7 @@ namespace TodoListWebForm
             TasksBLL.CreateTask(task, arr, ownerId);
 
             TasksBLL.expiringTask();
-            GridViewTasksDayOfWeek(null); // get current date time
+            GridViewTasksDayOfWeek(null, false); // get current date time
 
             Helper.Toast(this, Page.ClientScript, "success", "Create task sussess");
         }

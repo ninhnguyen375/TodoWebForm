@@ -4,11 +4,11 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid task-in-week">
         <div class="row justify-content-between">
-            <div>
-                <div class="ml-auto d-flex justify-content-end">
-                    <asp:TextBox ID="selectWeek" CssClass="form-control ml-2" Width="200" TextMode="Week" runat="server"></asp:TextBox>
-                    <asp:Button EnableViewState=false CssClass="btn btn-primary ml-2" OnClientClick="handleSelectWeek" Text="Filter" runat="server" OnClick="handleSelectWeek" />
-                </div>
+            <div class="d-flex align-items-center">
+                <asp:TextBox ID="selectWeek" CssClass="form-control mr-3" Width="200" TextMode="Week" runat="server"></asp:TextBox>
+                <span class="mr-1">MY TASK ONLY:</span>
+                <asp:CheckBox runat="server" ID="cbOnlyMine" />
+                <asp:Button EnableViewState=false CssClass="btn btn-primary ml-3 fa-icon" OnClientClick="handleSelectWeek" Text="  FILTER" runat="server" OnClick="handleSelectWeek" />
             </div>
             <button type="button" data-toggle="modal" data-target="#addTaskModal" class="btn btn-primary">
                 <i class="fas fa-plus mr-1"></i>
@@ -48,19 +48,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                            <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                                <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                            </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -107,19 +110,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -166,19 +172,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -225,19 +234,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -284,19 +296,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -343,19 +358,22 @@
                                             <ItemTemplate>
                                                 <% if(Session["role"].Equals("admin")) { %>
                                                     <a href="/usersDetail?id=<%# Eval("id") %>">
-                                                        <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                        <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                         </div>
                                                     </a>
                                                 <% } else { %>
-                                                    <div data-toggle="tooltip" data-placement="left" class="task__users__item" title='<%# Eval("name") %>'>
+                                                    <div data-toggle="tooltip" data-placement="top" class="task__users__item" title='<%# Eval("name") %>'>
                                                             <i class="fas fa-user"></i>
                                                     </div>
                                                 <% } %>
                                             </ItemTemplate>
                                         </asp:DataList>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-1">
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div data-toggle="<%# Convert.ToBoolean(Eval("hasRemind")) ? "tooltip" : "" %>" data-placement="top" title="Admin Has Reminded For This Task">
+                                            <i class="<%# Convert.ToBoolean(Eval("hasRemind")) ? "fas fa-bell text-danger" : "" %>" style="font-size: 1.3em"></i>
+                                        </div>
                                         <div class="d-flex">
                                             <asp:Label CssClass="task__date" ID="Label3" runat="server" Text='<%# Eval("startDate") %>'></asp:Label>
                                             <span class="">-</span>
@@ -375,7 +393,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form add new task</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">ADD NEW TASK</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -400,7 +418,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="endDate">File</label>
-                                <asp:FileUpload ID="fileInput" class="form-control" runat="server"></asp:FileUpload>
+                                <asp:FileUpload ID="fileInput" class="form-control-file" runat="server"></asp:FileUpload>
                             </div>
                             <div class="form-group">
                                 <label for="endDate">Select partner</label>
@@ -421,11 +439,11 @@
                                 </asp:GridView>
                             </div>
                             <div class="form-group">
-                                <label for="endDate">Private</label>
+                                <asp:Label runat="server" AssociatedControlID="privateScope">Private</asp:Label>
                                 <asp:CheckBox runat="server" ID="privateScope" />
                             </div>
                             <div class="d-flex justify-content-end">
-                                <asp:Button CssClass="btn btn-primary" Text="Add new task" runat="server" OnClick="HandleCreateTask" />
+                                <asp:Button CssClass="btn btn-primary" Text="  ADD NEW TASK" runat="server" OnClick="HandleCreateTask" />
                             </div>
                         </div>
                     </div>

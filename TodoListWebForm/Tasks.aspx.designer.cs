@@ -13,6 +13,15 @@ namespace TodoListWebForm {
     public partial class Tasks {
         
         /// <summary>
+        /// taskListHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label taskListHeader;
+        
+        /// <summary>
         /// tasksGridView control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,24 @@ namespace TodoListWebForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tasksGridView;
+        
+        /// <summary>
+        /// taskListPublicHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label taskListPublicHeader;
+        
+        /// <summary>
+        /// GridViewPublicTasks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewPublicTasks;
         
         /// <summary>
         /// title control.

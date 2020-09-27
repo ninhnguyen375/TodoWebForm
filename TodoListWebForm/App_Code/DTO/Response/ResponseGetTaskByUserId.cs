@@ -14,6 +14,8 @@ namespace TodoListWebForm.App_Code.DTO.Response
         public string endDate { get; set; }
         public string Status { get; set; }
         public bool Private { get; set; }
+        public bool HasRemind { get; set; }
+        public int OwnerId { get; set; }
         public DataTable Partners { get; set; }
     }
 }

@@ -31,3 +31,13 @@
 .task-in-week__items::-webkit-scrollbar-thumb {
   background-color: darkgrey;
 }
+.task__my-task {
+    top: -10px;
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    background: #d4edda;
+    color: #155724;
+}

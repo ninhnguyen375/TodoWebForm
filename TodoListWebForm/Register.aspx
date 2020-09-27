@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Register" MasterPageFile="~/Site.Master"  Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="TodoListWebForm.Register" %>
+﻿<%@ Page Title="REGISTER" MasterPageFile="~/Site.Master"  Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="TodoListWebForm.Register" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
@@ -29,7 +29,7 @@
                     <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Confirm Password is required" ControlToValidate="tbConfirmPassword" runat="server" />
                 </div>
                 <div class="form-group">
-                    <asp:Button CssClass="btn btn-primary w-100" Text="Register" OnClick="HandleClickRegister" runat="server" />
+                    <asp:Button CssClass="btn btn-primary w-100" Text="  REGISTER" OnClick="HandleClickRegister" runat="server" />
                 </div>
             </div>
         </div>
