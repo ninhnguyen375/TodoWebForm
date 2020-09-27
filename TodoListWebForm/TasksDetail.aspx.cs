@@ -215,8 +215,7 @@ namespace TodoListWebForm
                 // Get owner id 
                 int ownerId = TasksBLL.getOwnerByTaskId(task.ID);
 
-                if (isOwner || isPartner)
-                {
+               
                     foreach (GridViewRow row in usersGridView.Rows)
                     {
                         var checkbox = (CheckBox) row.FindControl("checkbox");
@@ -226,7 +225,6 @@ namespace TodoListWebForm
                             checkbox.Style.Add("pointer-events", "none");
                         }
                     }
-                }
             }
         }
     }
