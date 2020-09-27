@@ -27,12 +27,60 @@ namespace TodoListWebForm.App_Code.DAL
         public static List<TasksDTO> GetAllTasksByUserId(int userId)
         {
             ConnectionDatabase.getConnection();
+            string query;
+
+            if(userId == -1)
+            {
+                query = @"select * from (select * from tasks) as temp
+                                            order by case when status = 'expired' then 1
+			                                    when status = 'inprogress' then 2
+			                                    when status = 'done' then 3
+			                                    else 4
+		                                        end asc, startDate desc";
+            } else
+            {
+                query = @"select * from (select * from tasks
+	                                     where id in (select taskId 
+				                                      from usersTasks
+				                                      where userId = @userId)
+                                        ) as temp
+                                        order by case when status = 'expired' then 1
+			                                when status = 'inprogress' then 2
+			                                when status = 'done' then 3
+			                                else 4
+		                                    end asc, startDate desc";
+            }
+            SqlCommand cmd = new SqlCommand(query, ConnectionDatabase.conn);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TasksDTO> arr = new List<TasksDTO>();
+            while (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string title = reader.GetString(1);
+                    string startDate = reader.GetValue(2).ToString().Split(Convert.ToChar(" "))[0];
+                    string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0];
+                    string status = reader.GetString(4);
+                    bool Private = Convert.ToBoolean(reader.GetValue(5));
+                    string urlFile = reader["urlFile"].ToString();
+                    arr.Add(new TasksDTO(id,
+                                         title,
+                                         startDate,
+                                         endDate,
+                                         status,
+                                         Private,
+                                         urlFile));
+                }
+                reader.NextResult();
+            }
+            return arr;
+        }
+        public static List<TasksDTO> GetAllTasksPublicExcludeUserId(int userId)
+        {
+            ConnectionDatabase.getConnection();
             string query = @"select * from (
-	                                        select * from tasks
-	                                        where id in (select taskId 
-				                                        from usersTasks
-				                                        where userId = @userId)
-	                                        union
 	                                        select * from tasks
 	                                        where id in (select taskId 
 				                                        from usersTasks
@@ -48,14 +96,14 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@userId", userId);
             SqlDataReader reader = cmd.ExecuteReader();
             List<TasksDTO> arr = new List<TasksDTO>();
-            while(reader.HasRows)
+            while (reader.HasRows)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
                     string title = reader.GetString(1);
                     string startDate = reader.GetValue(2).ToString().Split(Convert.ToChar(" "))[0];
-                    string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0]; 
+                    string endDate = reader.GetValue(3).ToString().Split(Convert.ToChar(" "))[0];
                     string status = reader.GetString(4);
                     bool Private = Convert.ToBoolean(reader.GetValue(5));
                     string urlFile = reader["urlFile"].ToString();
@@ -76,12 +124,13 @@ namespace TodoListWebForm.App_Code.DAL
         {
             ConnectionDatabase.getConnection();
             string query;
-            if(task.urlFile == null)
+            if (task.urlFile == null)
             {
                 query = @"insert into tasks(title, startDate, endDate, status, private)
                             values(@title, @startDate, @endDate, @status, @private); 
                             select MAX(id) FROM tasks";
-            } else
+            }
+            else
             {
                 query = @"insert into tasks(title, startDate, endDate, status, private, urlFile)
                             values(@title, @startDate, @endDate, @status, @private, @urlFile); 
@@ -93,7 +142,7 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@endDate", Convert.ToDateTime(task.endDate));
             cmd.Parameters.AddWithValue("@status", task.Status);
             cmd.Parameters.AddWithValue("@private", task.Private);
-            if(task.urlFile != null)
+            if (task.urlFile != null)
             {
                 cmd.Parameters.AddWithValue("@urlFile", task.urlFile);
             }
@@ -127,7 +176,7 @@ namespace TodoListWebForm.App_Code.DAL
         public static int DeleteTaskById(string taskId)
         {
             ConnectionDatabase.getConnection();
-            
+
             // remove comment 
             string sql = @"delete from comments 
                     where taskId = @taskId";
@@ -300,14 +349,33 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.closeConnection();
         }
 
-        public static List<TasksDTO> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week, string datetime)
+        public static List<TasksDTO> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week, string datetime, bool onlyMine)
         {
             ConnectionDatabase.getConnection();
             string query;
 
-            if(userId != -1)
+            if (userId != -1)
             {
-                query = @"select * from (
+                if (onlyMine)
+                {
+                    query = @"select * from (
+	                                            select * from tasks
+	                                            where id in (select taskId 
+				                                            from usersTasks
+				                                            where userId = @userId)
+                                            ) as temp
+                                 where DATEPART(WEEKDAY,startDate) = @day_of_week
+                                    and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
+	                                and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
+                                 order by case when status = 'expired' then 1
+			                          when status = 'inprogress' then 2
+			                          when status = 'done' then 3
+			                          else 4
+		                         end asc, startDate desc";
+                }
+                else
+                {
+                    query = @"select * from (
 	                                            select * from tasks
 	                                            where id in (select taskId 
 				                                            from usersTasks
@@ -320,13 +388,14 @@ namespace TodoListWebForm.App_Code.DAL
 				                                            and private = 0
                                             ) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
-                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
+                                    and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
+	                                and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
                                  order by case when status = 'expired' then 1
 			                          when status = 'inprogress' then 2
 			                          when status = 'done' then 3
 			                          else 4
 		                         end asc, startDate desc";
+                }
 
             }
             else
@@ -334,8 +403,8 @@ namespace TodoListWebForm.App_Code.DAL
                 query = @"select * from (select * 
                                          from tasks) as temp
                                  where DATEPART(WEEKDAY,startDate) = @day_of_week
-                                 and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
-	                             and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
+                                    and startDate >= (SELECT  DATEADD(DAY, 2- DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekStart])
+	                                and startDate <= (SELECT  DATEADD(DAY, 7 - DATEPART(WEEKDAY, @datetime), CAST(@datetime AS DATE)) [WeekEnd])
                                  order by case when status = 'expired' then 1
 			                          when status = 'inprogress' then 2
 			                          when status = 'done' then 3
@@ -346,10 +415,11 @@ namespace TodoListWebForm.App_Code.DAL
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@day_of_week", day_of_week);
 
-            if(datetime == null)
+            if (datetime == null)
             {
                 cmd.Parameters.AddWithValue("@datetime", DateTime.Now.ToString("MM/dd/yyyy"));
-            }else
+            }
+            else
             {
                 cmd.Parameters.AddWithValue("@datetime", Convert.ToDateTime(datetime).ToString("MM/dd/yyyy"));
             }
@@ -401,7 +471,7 @@ namespace TodoListWebForm.App_Code.DAL
 
             return false;
         }
-        public static void expiringTask ()
+        public static void expiringTask()
         {
             ConnectionDatabase.getConnection();
 

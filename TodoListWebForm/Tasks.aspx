@@ -175,10 +175,11 @@
                     </div>
                 </div>--%>
 
-                <h3 class="font-weight-bold mt-5">All Task</h3>
-
                 <div class="task__wrap">
-                    <div class="d-flex justify-content-end mb-2">
+                    <div class="d-flex justify-content-between mb-2">
+                        <h4>
+                            <b><asp:Label runat="server" ID="taskListHeader" Text="MY TASKS"></asp:Label></b>
+                        </h4>
                         <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">
                             <i class="fas fa-plus mr-1"></i>
                             ADD NEW TASK
@@ -240,13 +241,75 @@
                         </Columns>
                     </asp:GridView>
                 </div>
+
+                <h4 class="mt-5">
+                    <b><asp:Label runat="server" ID="taskListPublicHeader" Text="OTHER USER'S TASKS"></asp:Label></b>
+                </h4>
+
+                <div class="task__wrap">
+                    <asp:GridView BorderColor="#EEEEEE" 
+                        DataKeyNames="id" CssClass="table" runat="server" ID="GridViewPublicTasks" 
+                        AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
+                        <Columns>
+                            <asp:TemplateField HeaderText="ID">
+                                <ItemTemplate>
+                                    <span><%# Eval("id") %></span>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Title">
+                                <ItemTemplate>
+                                    <a class="text-primary" href="/tasksDetail?id=<%# Eval("id") %>"><%# Eval("title") %></a>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField ControlStyle-Width="180px" HeaderText="Employee">
+                                <ItemTemplate>
+                                    <asp:DataList
+                                        runat="server"
+                                        DataSource='<%# Eval("Partners") %>'>
+                                        <ItemTemplate>
+                                            <div title='<%# Eval("email") %>'>
+                                                <%# Convert.ToInt32(Eval("ID")) == Convert.ToInt32(Session["id"]) ? "<i class='fas fa-user-shield'></i>" : "<i class='fas fa-user'></i>" %>
+                                                <%# Eval("name") %>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+
+
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="startDate" HeaderText="Start Date">
+                            </asp:BoundField>
+                            <asp:BoundField ControlStyle-Width="180px" ControlStyle-CssClass="form-control" DataField="endDate" HeaderText="End Date">
+                            </asp:BoundField>
+                            <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label CssClass='<%# Eval("status").Equals("inprogress") ? "task__status bg-primary text-white" : (Eval("status").Equals("expired") ? "task__status bg-danger text-white" : "task__status bg-success text-white") %>' ID="Label4" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Scope">
+                                <ItemTemplate>
+                                    <div class="task__private">
+                                        <i class='<%# Convert.ToInt32(Eval("private")) == 1 ? "fas fa-lock" : "fas fa-globe" %>'>
+                                        </i>
+                                        <span class="mr-1"></span>
+                                        <asp:Label ID="Label5" runat="server" Text='<%# Convert.ToInt32(Eval("private")) == 1 ? "private" : "public" %>'></asp:Label>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Form add new task</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">ADD NEW TASK</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -271,7 +334,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">File</label>
-                                    <asp:FileUpload ID="fileInput" class="form-control" runat="server"></asp:FileUpload>
+                                    <asp:FileUpload ID="fileInput" class="form-control-file" runat="server"></asp:FileUpload>
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">Select partner</label>
@@ -292,11 +355,11 @@
                                     </asp:GridView>
                                 </div>
                                 <div class="form-group">
-                                    <label for="endDate">Private</label>
+                                    <asp:Label runat="server" AssociatedControlID="privateScope">Private</asp:Label>
                                     <asp:CheckBox runat="server" ID="privateScope" />
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <asp:Button CssClass="btn btn-primary" Text="Add new task" runat="server" OnClick="HandleCreateTask" />
+                                    <asp:Button CssClass="btn btn-primary" Text="  ADD NEW TASK" runat="server" OnClick="HandleCreateTask" />
                                 </div>
                             </div>
                         </div>

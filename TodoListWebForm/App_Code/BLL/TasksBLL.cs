@@ -39,10 +39,31 @@ namespace TodoListWebForm.App_Code.BLL
             }
             return arrFinal;
         }
-
-        public static List<ResponseGetTaskByUserId> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week,string datetime)
+        public static List<ResponseGetTaskByUserId> GetAllTasksPublicExcludeUserId(int userId)
         {
-            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, day_of_week, datetime);
+            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksPublicExcludeUserId(userId);
+            List<ResponseGetTaskByUserId> arrFinal = new List<ResponseGetTaskByUserId>();
+            // add partner
+            for (int i = 0; i < arrTasks.Count; i++)
+            {
+                DataTable partners = UsersBLL.getListUserOfTask(arrTasks[i].ID);
+                ResponseGetTaskByUserId temp = new ResponseGetTaskByUserId();
+                temp.ID = arrTasks[i].ID;
+                temp.Title = arrTasks[i].Title;
+                temp.startDate = arrTasks[i].startDate;
+                temp.endDate = arrTasks[i].endDate;
+                temp.Status = arrTasks[i].Status;
+                temp.Private = arrTasks[i].Private;
+                temp.OwnerId = getOwnerByTaskId(arrTasks[i].ID);
+                temp.Partners = partners;
+
+                arrFinal.Add(temp);
+            }
+            return arrFinal;
+        }
+        public static List<ResponseGetTaskByUserId> GetAllTasksByUserIdComplyWithDayOfWeek(int userId, int day_of_week,string datetime, bool onlyMine)
+        {
+            List<TasksDTO> arrTasks = TasksDAL.GetAllTasksByUserIdComplyWithDayOfWeek(userId, day_of_week, datetime, onlyMine);
             List<ResponseGetTaskByUserId> arrFinal = new List<ResponseGetTaskByUserId>();
             // add partner
             for (int i = 0; i < arrTasks.Count; i++)

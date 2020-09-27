@@ -13,7 +13,7 @@ namespace TodoListWebForm
     {
         TasksDTO task;
 
-        List<int> arrPartnerId;
+        List<int> arrPartnerId = new List<int>();
 
         public bool isOwner;
 
@@ -96,6 +96,7 @@ namespace TodoListWebForm
 
             Helper.Toast(this, Page.ClientScript, "success", "Update task success");
             TasksBLL.expiringTask();
+            renderActionButtons();
             getValueTask();
             initValue();
         }
@@ -128,6 +129,11 @@ namespace TodoListWebForm
         protected void handleSubmitComment(object sender, EventArgs e)
         {
             string content = chatBox.Text;
+            if(string.IsNullOrEmpty(content))
+            {
+                Helper.Toast(this, Page.ClientScript, "info", "Please input comment");
+                return;
+            }
             TasksBLL.createComment(Convert.ToInt32(Session["id"].ToString()), task.ID, content, false);
             bindComment();
 
@@ -138,7 +144,7 @@ namespace TodoListWebForm
         protected void HandleDeleteTask(object sender, EventArgs e)
         {
             int result = TasksBLL.DeleteTaskById(Convert.ToString(task.ID));
-            Response.Redirect("/tasks");
+            Response.Redirect("/taskinweek");
         }
 
         protected void handleRemindTask(object sender, EventArgs e)
@@ -153,8 +159,10 @@ namespace TodoListWebForm
 
         protected void renderActionButtons()
         {
+            int userId = Convert.ToInt32(Session["id"]);
+
             // Check current user exists in the list of partner or not
-            int partnerIndex = arrPartnerId.FindIndex(u => u == Convert.ToInt32(Session["id"].ToString()));
+            int partnerIndex = arrPartnerId.FindIndex(u => u == userId);
 
             // Get owner id 
             int ownerId = TasksBLL.getOwnerByTaskId(task.ID);
