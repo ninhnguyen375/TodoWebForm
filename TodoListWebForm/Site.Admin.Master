@@ -7,13 +7,11 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                            <a href="/dashboard" class="nav-link <% if (path.IndexOf("dashboard") > -1)
-                                { %> active <% } %> ">Dashboard</a>
-                            <a href="/users" class="nav-link <% if (path.IndexOf("users") > -1)
-                                { %> active <% } %> ">Users</a>
-                        </div>
+                    <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                        <a href="/dashboard" class="nav-link <% if (path.IndexOf("dashboard") > -1)
+                            { %> active <% } %> ">Dashboard</a>
+                        <a href="/users" class="nav-link <% if (path.IndexOf("users") > -1)
+                            { %> active <% } %> ">Users</a>
                     </div>
                 </div>
             </div>

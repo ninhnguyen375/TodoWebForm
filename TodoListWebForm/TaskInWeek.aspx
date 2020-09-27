@@ -398,21 +398,30 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                     <div class="modal-body">
                         <div>
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <asp:TextBox ID="title" class="form-control" runat="server"></asp:TextBox>
+                                <div class="with-effect">
+                                    <asp:TextBox placeholder="Task title" ID="title" class="effect" runat="server"></asp:TextBox>
+                                    <span class="focus-border"></span>
+                                </div>
                                 <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Title is required" ControlToValidate="title" runat="server" />
                             </div>
                             <div class="form-group">
                                 <label for="startDate">Start Date</label>
-                                <asp:TextBox TextMode="Date" ID="startDate" class="form-control" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Ddate is required" ControlToValidate="startDate" runat="server" />
+                                <div class="with-effect">
+                                    <asp:TextBox TextMode="Date" ID="startDate" class="effect w-100" runat="server"></asp:TextBox>
+                                    <span class="focus-border"></span>
+                                </div>
+                                <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Date is required" ControlToValidate="startDate" runat="server" />
                             </div>
                             <div class="form-group">
                                 <label for="endDate">End Date</label>
-                                <asp:TextBox TextMode="Date" ID="endDate" class="form-control" runat="server"></asp:TextBox>
+                                <div class="with-effect">
+                                    <asp:TextBox TextMode="Date" ID="endDate" class="effect w-100" runat="server"></asp:TextBox>
+                                    <span class="focus-border"></span>
+                                </div>
                                 <asp:RequiredFieldValidator Display="Dynamic" CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
                                 <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
                             </div>

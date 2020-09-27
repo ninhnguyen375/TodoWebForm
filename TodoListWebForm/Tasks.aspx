@@ -175,7 +175,7 @@
                     </div>
                 </div>--%>
 
-                <div class="task__wrap">
+                <div class="task__wrap card">
                     <div class="d-flex justify-content-between mb-2">
                         <h4>
                             <b><asp:Label runat="server" ID="taskListHeader" Text="MY TASKS"></asp:Label></b>
@@ -242,11 +242,11 @@
                     </asp:GridView>
                 </div>
 
-                <h4 class="mt-5">
-                    <b><asp:Label runat="server" ID="taskListPublicHeader" Text="OTHER USER'S TASKS"></asp:Label></b>
-                </h4>
 
-                <div class="task__wrap">
+                <div class="task__wrap mt-5 card">
+                    <h4>
+                        <b><asp:Label runat="server" ID="taskListPublicHeader" Text="OTHER USER'S TASKS"></asp:Label></b>
+                    </h4>
                     <asp:GridView BorderColor="#EEEEEE" 
                         DataKeyNames="id" CssClass="table" runat="server" ID="GridViewPublicTasks" 
                         AutoGenerateColumns="False" OnRowDeleting="HandleDeleteTask">
@@ -318,17 +318,26 @@
                             <div>
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <asp:TextBox ID="title" class="form-control" runat="server"></asp:TextBox>
+                                    <div class="with-effect">
+                                        <asp:TextBox placeholder="Task title" ID="title" class="effect" runat="server"></asp:TextBox>
+                                        <span class="focus-border"></span>
+                                    </div>
                                     <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Title is required" ControlToValidate="title" runat="server" />
                                 </div>
                                 <div class="form-group">
                                     <label for="startDate">Start Date</label>
-                                    <asp:TextBox TextMode="Date" ID="startDate" class="form-control" runat="server"></asp:TextBox>
+                                    <div class="with-effect">
+                                        <asp:TextBox TextMode="Date" ID="startDate" class="effect w-100" runat="server"></asp:TextBox>
+                                        <span class="focus-border"></span>
+                                    </div>
                                     <asp:RequiredFieldValidator CssClass="text-danger" ErrorMessage="Start Date is required" ControlToValidate="startDate" runat="server" />
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">End Date</label>
-                                    <asp:TextBox TextMode="Date" ID="endDate" class="form-control" runat="server"></asp:TextBox>
+                                    <div class="with-effect">
+                                        <asp:TextBox TextMode="Date" ID="endDate" class="effect w-100" runat="server"></asp:TextBox>
+                                        <span class="focus-border"></span>
+                                    </div>
                                     <asp:RequiredFieldValidator Display="Dynamic" CssClass="text-danger" ErrorMessage="End Date is required" ControlToValidate="endDate" runat="server" />
                                     <asp:CompareValidator Display="Dynamic" CssClass="text-danger" runat="server" ErrorMessage="End date needs greater than start date" Type="Date" ControlToValidate="endDate" ControlToCompare="startDate" Operator="GreaterThanEqual"></asp:CompareValidator>
                                 </div>

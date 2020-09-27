@@ -82,10 +82,10 @@ namespace TodoListWebForm.App_Code.DAL
             ConnectionDatabase.getConnection();
             string query = @"select * from (
 	                                        select * from tasks
-	                                        where id in (select taskId 
-				                                        from usersTasks
-				                                        where userId != @userId)
-				                                        and private = 0
+	                                        where id not in (select taskId 
+								                            from usersTasks
+								                            where userId = @userId)
+				                                and private = 0
                                         ) as temp
                                             order by case when status = 'expired' then 1
 			                                  when status = 'inprogress' then 2

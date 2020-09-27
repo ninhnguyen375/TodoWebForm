@@ -3,7 +3,7 @@
 
 <asp:Content ID="BodyContentAdmin" ContentPlaceHolderID="MainContentAdmin" runat="server">
     <div class="row">
-        <div class="col">
+        <div class="col card">
             <h3><b>USER DETAIL</b></h3>
             <div>
                 <b>Name: </b>
