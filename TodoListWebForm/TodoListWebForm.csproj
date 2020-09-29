@@ -210,6 +210,7 @@
     <Content Include="TaskInWeek.aspx" />
     <Content Include="Tasks.aspx" />
     <Content Include="TasksDetail.aspx" />
+    <Content Include="UserProfile.aspx" />
     <Content Include="Users.aspx" />
     <Content Include="UsersDetail.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -334,6 +335,13 @@
     </Compile>
     <Compile Include="TasksDetail.aspx.designer.cs">
       <DependentUpon>TasksDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfile.aspx.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserProfile.aspx.designer.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

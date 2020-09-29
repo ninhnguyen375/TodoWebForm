@@ -22,11 +22,15 @@
             <asp:BoundField ReadOnly="true" DataField="role" HeaderText="ROLE" SortExpression="role" />
             <asp:CommandField
                 ItemStyle-HorizontalAlign="Center" 
-                ControlStyle-CssClass="btn btn-primary mt-1 btn-sm"
+                ControlStyle-CssClass="btn btn-primary font-weight-bold mt-1 btn-sm"
                 ButtonType="Button" 
                 HeaderText="ACTION" 
                 ShowDeleteButton="True"
                 HeaderStyle-CssClass="text-center"
+                EditText="  EDIT"
+                DeleteText="  DELETE"
+                UpdateText="  UPDATE"
+                CancelText="  CANCEL"
                 ShowEditButton="True" ShowHeader="True">
             </asp:CommandField>
             <asp:TemplateField>

@@ -15,7 +15,7 @@ namespace TodoListWebForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["name"] == null)
+            if (Session["name"] == null)
             {
                 Response.Redirect("/login");
             }
@@ -24,7 +24,7 @@ namespace TodoListWebForm
                 Response.Redirect("/login");
             }
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 gvBind();
             }
@@ -65,16 +65,23 @@ namespace TodoListWebForm
             {
                 e.Row.Attributes.Add("onkeypress", "javascript:if (event.keyCode == 13) {event.preventDefault()}");
             }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if(e.Row.Cells[2].Text.Equals(Role.Admin))
+                {
+                    e.Row.Cells[3].Enabled = false;
+                }
+            }
         }
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 return;
             }
 
             int userId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
-            if(Session["id"].Equals(userId))
+            if (Session["id"].Equals(userId))
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
                 //    "toast", @"iziToast.error({ message: 'Can not delete this user' });", true);
@@ -84,7 +91,7 @@ namespace TodoListWebForm
 
             bool result = UsersBLL.deleteUser(userId);
 
-            if(!result)
+            if (!result)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
                     "toast", @"iziToast.error({ message: 'Can not delete this user' });", true);

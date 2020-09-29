@@ -89,7 +89,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link active" href="#"><span class="mr-3">|</span> <%: Session["name"] %></a>
+                                <a class="nav-link active" href="/userprofile"><span class="mr-3">|</span> <%: Session["name"] %></a>
                             </li>
                             <li class="nav-item d-flex align-items-center">
                                 <asp:Button 
